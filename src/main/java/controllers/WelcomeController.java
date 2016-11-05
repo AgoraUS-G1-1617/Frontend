@@ -54,9 +54,6 @@ public class WelcomeController extends AbstractController {
 		moment = formatter.format(new Date());
 				
 		result = new ModelAndView("welcome/index");
-		//Esto es para crear un mapa en el que la clave es la ciudad y el valor, el numero de encuenstas que se han hecho en dicha ciudad
-		//Esto es lo que vamos a pintar
-		Integer frecuenciaCP=1;
 		Collection<Pregunta> preguntas;
 		preguntas = preguntaService.findAll();
 		HashMap<String, Integer> preguntasPorCiudad = new HashMap<>();

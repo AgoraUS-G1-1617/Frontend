@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Encuesta;
-import domain.Propuesta;
 
 @Repository
 public interface EncuestaRepository extends JpaRepository<Encuesta, Integer> {

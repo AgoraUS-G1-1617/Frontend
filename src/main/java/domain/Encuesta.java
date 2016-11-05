@@ -7,8 +7,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 

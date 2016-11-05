@@ -11,11 +11,9 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.util.Assert;
 
 import domain.Encuesta;
-import domain.Opcion;
 import domain.Pregunta;
 
 import services.EncuestaService;
-import services.OpcionService;
 import services.PreguntaService;
 import utilities.AbstractTest;
 
@@ -31,9 +29,6 @@ public class PreguntaNegativeTest extends AbstractTest{
 	
 	@Autowired
 	private PreguntaService preguntaService;
-	
-	@Autowired
-	private OpcionService opcionService;
 	
 	@Autowired
 	private EncuestaService encuestaService;
