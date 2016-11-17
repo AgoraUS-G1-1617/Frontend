@@ -29,20 +29,13 @@
     <servlet-name>EGC-Frontend</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
   <welcome-file-list>
-    <!-- <welcome-file>/views/misc/index.jsp</welcome-file>-->
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  <!-- Cambiar a una página de error en html estático
   <error-page>
     <error-code>403</error-code>
     <location>/views/misc/403.jsp</location>
   </error-page>
+  -->
 </web-app>

@@ -1,16 +1,5 @@
 package controllers.map;
 
-import java.util.Collection;
-
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
-
 public class Tuple{
 	private String code;
 	private int z;
