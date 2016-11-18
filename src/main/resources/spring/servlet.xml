@@ -23,15 +23,25 @@
 	    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 	">
 	
-	<!-- Context -->
+	<!-- Context
 
 	<import resource="config/packages.xml" />
-
+ -->
 	<context:annotation-config />
 
 	<!-- Data -->
 
 	<import resource="datasource.xml" />
+
+	<bean id="openEntityManagerInViewInterceptor"
+		class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/*.do" />
+			<ref bean="openEntityManagerInViewInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- Validator -->
 
@@ -39,6 +49,16 @@
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
+
+	
+	 <!-- Configure to plugin JSON as request and response in method handler -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonMessageConverter"/>
+            </list>
+        </property>
+    </bean>
      
     <!-- Configure bean to convert JSON to POJO and vice versa -->
     <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

@@ -45,14 +45,14 @@ public class EncuestaPositiveTest extends AbstractTest{
 	@Test
 	public void testFindOneEncuesta(){
 		Encuesta encuesta;
-		encuesta =encuestaService.findOne(4);
+		encuesta =encuestaService.findOne(1);
 		Assert.notNull(encuesta);
 	}
 	
 	@Test
 	public void testFindOneEncuesta1(){
 		Encuesta encuesta;
-		encuesta =encuestaService.findOne(4);
+		encuesta =encuestaService.findOne(1);
 		Assert.isTrue(encuesta.getNombre().equals("Encuesta 1"));
 	}
 	

@@ -48,7 +48,7 @@ public class PreguntaNegativeTest extends AbstractTest{
 	@Test(expected=IllegalArgumentException.class)
 	public void testCPIncorrecto(){
 		Pregunta pregunta;
-		pregunta = preguntaService.findOne(5);
+		pregunta = preguntaService.findOne(2);
 		String codigoPostal = preguntaService.cpToCiudadString(pregunta.getCp());
 		Assert.isTrue(codigoPostal.equals("Malaga"));
 		
@@ -60,7 +60,7 @@ public class PreguntaNegativeTest extends AbstractTest{
 	@Test(expected=IllegalArgumentException.class)
 	public void testFindOnePregunta(){
 		Pregunta pregunta;
-		pregunta = preguntaService.findOne(5);
+		pregunta = preguntaService.findOne(2);
 		Assert.isTrue(pregunta.getPregunta()=="Prueba Mala");
 	}
 	

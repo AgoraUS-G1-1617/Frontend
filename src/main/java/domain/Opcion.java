@@ -9,9 +9,12 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+import javax.xml.bind.annotation.XmlRootElement;
+ 
+@XmlRootElement(name = "Opcion")
 @Entity
 @Access(AccessType.PROPERTY)
 public class Opcion extends DomainEntity{
@@ -45,7 +48,7 @@ public class Opcion extends DomainEntity{
 	}
 	
 	private Pregunta pregunta;
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(optional=false)
 	public Pregunta getPregunta() {
 		return pregunta;

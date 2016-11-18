@@ -4,13 +4,20 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+
+ 
+@XmlRootElement(name = "Encuesta")
 @Entity
 @Access(AccessType.PROPERTY)
 public class Encuesta extends DomainEntity{
@@ -22,8 +29,8 @@ public class Encuesta extends DomainEntity{
 	
 	private Collection<Pregunta> preguntas;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy="encuesta")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="encuesta", cascade=CascadeType.ALL)
 	public Collection<Pregunta> getPreguntas() {
 		return preguntas;
 	}

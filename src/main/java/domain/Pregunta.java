@@ -4,18 +4,23 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+import javax.xml.bind.annotation.XmlRootElement;
+ 
+@XmlRootElement(name = "Pregunta")
 @Entity
 @Access(AccessType.PROPERTY)
 public class Pregunta extends DomainEntity{
@@ -49,7 +54,7 @@ public class Pregunta extends DomainEntity{
 	private Encuesta encuesta;
 	private Collection<Opcion> opcions;
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(optional=false)
 	public Encuesta getEncuesta() {
 		return encuesta;
@@ -57,8 +62,8 @@ public class Pregunta extends DomainEntity{
 	public void setEncuesta(Encuesta encuesta) {
 		this.encuesta = encuesta;
 	}
-	@JsonManagedReference
-	@OneToMany(mappedBy="pregunta")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="pregunta", cascade=CascadeType.ALL)
 	public Collection<Opcion> getOpcions() {
 		return opcions;
 	}

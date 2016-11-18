@@ -24,18 +24,32 @@
       <param-name>contextConfigLocation</param-name>
       <param-value></param-value>
     </init-param>
+	  <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>EGC-Frontend</servlet-name>
-    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.welp</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
+    <!-- <welcome-file>/views/misc/index.jsp</welcome-file>-->
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  <!-- Cambiar a una página de error en html estático
+  
+	  
+	<servlet>
+	  <servlet-name>recuento</servlet-name>
+	  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	  <load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+	  <servlet-name>recuento</servlet-name>
+	  <url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+  
+  
   <error-page>
     <error-code>403</error-code>
     <location>/views/misc/403.jsp</location>
   </error-page>
-  -->
 </web-app>

@@ -54,7 +54,7 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 				try {
 					console.log("Cargado");	
 					$scope.recuento = response['data'];
-					//console.log($scope.recuento);
+					console.log(response);
 					
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;

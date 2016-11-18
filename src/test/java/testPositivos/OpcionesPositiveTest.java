@@ -44,17 +44,17 @@ public class OpcionesPositiveTest extends AbstractTest{
 	@Test
 	public void testFindOpcioneByPregunta(){
 		Pregunta pregunta;
-		pregunta = preguntaService.findOne(5);
+		pregunta = preguntaService.findOne(2);
 		Collection<Opcion>opcions;
 		opcions = opcionService.opcionesPregunta(pregunta);
 		Opcion opcion;
-		opcion= opcionService.findOne(8);
+		opcion= opcionService.findOne(3);
 		
 		Opcion opcion1;
-		opcion1= opcionService.findOne(9);
+		opcion1= opcionService.findOne(4);
 		
 		Opcion opcion2;
-		opcion2= opcionService.findOne(10);
+		opcion2= opcionService.findOne(5);
 		
 		Assert.isTrue(opcions.contains(opcion));
 		Assert.isTrue(opcions.contains(opcion1));
@@ -66,7 +66,7 @@ public class OpcionesPositiveTest extends AbstractTest{
 	@Test
 	public void testFindOneOpciones1(){
 		Opcion opcions;
-		opcions = opcionService.findOne(8);
+		opcions = opcionService.findOne(3);
 		Assert.isTrue(opcions.getTexto().equals("Manuel"));
 		
 	}
