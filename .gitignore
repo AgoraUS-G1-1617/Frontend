@@ -1,3 +1,5 @@
+#carpeta target
+target/
 # Logs
 logs
 *.log
