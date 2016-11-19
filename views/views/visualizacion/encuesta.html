@@ -1,0 +1,22 @@
+<div ng-show="params.encuesta == null">
+	<table class="table table-responsive table-striped">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+
+				<th>
+					<!-- Vacio para que muestre solo el enlace -->
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="encuesta in encuestas">
+				<td>{{encuesta.nombre}}</td>
+
+				<td><a class="btn btn-success" href="resultados/encuestas/ver?encuesta={{encuesta._id}}">Ver
+						resultados</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

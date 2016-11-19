@@ -1,0 +1,109 @@
+<!-- <script src="scripts/js/highcharts.js"></script> -->
+<!-- <script src="scripts/js/highcharts-3d.js"></script> -->
+
+<div ng-show="params.encuesta != null">
+
+	<p>
+		<b>Nombre encuesta: </b>{{recuento.nombre}}</p>
+	<div class="col-xs-6">
+		<table class="table table-responsive table-striped">
+			<thead>
+				<tr>
+					<th>Preguntas</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pregunta in recuento.preguntas">
+					<td>{{pregunta.pregunta}}
+
+
+
+						<div ng-repeat="opcion in pregunta.opcions">
+							<input class="opcion{{pregunta._id}}" id="{{opcion.texto}}"
+								type="hidden" value="{{opcion.recuento}}">
+						</div>
+
+					</td>
+
+
+
+					<td><button onclick="drawPie(this)" id="{{pregunta._id}}"
+							class="btn btn-success" >Ver grafica</button></td>
+
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div  id="representacion" class="col-xs-6"  style="display:none;">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" onclick="drawPie()">Circular</a></li>
+			<li><a data-toggle="tab" onclick="drawColumn()">Columnas</a></li>
+			<li><a data-toggle="tab" onclick="drawSemiCircle()">Semicirculo</a></li>
+			<li><a data-toggle="tab" onclick="drawPie3d()">Circulo 3d</a></li>
+		</ul>
+
+
+
+		<div id="container"></div>
+	</div>
+</div>
+<script  type="text/javascript">
+	var idActual = -1;
+	var datosAct;
+
+	function parseaDatos(boton) {
+		var posicion = boton.id;
+
+		if (idActual != posicion) {
+
+			//[ [ "Si", parseInt(numSi) ], [ "No", parseInt(numNo) ] ]
+			var datos = [];
+
+			idActual = posicion;
+			opciones = document.getElementsByClassName("opcion" + posicion);
+			var i;
+			for (i = 0; i < opciones.length; i++) {
+				datos.push([ opciones[i].id, parseInt(opciones[i].value) ]);
+
+			}
+
+			datosAct = datos;
+			$(".active").attr('class', '');;
+
+		}
+
+		return datosAct;
+	}
+
+	function drawColumn() {
+
+		column(datosAct);
+	}
+	function drawSemiCircle(){
+		semicircle(datosAct);
+	}
+	function drawPie3d(){
+		pie3d(datosAct);
+	}
+	function drawPie(boton) {
+		var datos;
+		if (boton) {
+			datos = parseaDatos(boton);
+			$("#representacion").show();
+			//$("#representacion").collapse("show");
+		} else {
+			datos = datosAct;
+		}
+
+		pie(datos);
+
+	}
+</script>
+<script src="scripts/js/highcharts.js"></script>
+<script src="scripts/js/highcharts-3d.js"></script>
+<script type="text/javascript" src="scripts/js/estadisticas.js"></script>
+<script src="scripts/js/modules/exporting.js"></script>
