@@ -1,11 +1,12 @@
 const mongoose     = require('mongoose')
 
 module.exports.Encuesta = mongoose.model('Encuesta', {
-    nombre: String
+    nombre: String,
+        cp: Number
 })
 
 module.exports.Pregunta = mongoose.model('Pregunta', {
-    cp: Number,
+
     pregunta: String,
     encuesta: {
         type: mongoose.Schema.Types.ObjectId,

@@ -22,45 +22,45 @@ Encuesta.collection.remove()
 
 // Datos a persistir
 // Encuestas
-let encuesta1 = new Encuesta({ nombre: "Encuesta 1" }),
-    encuesta2 = new Encuesta({ nombre: "Encuesta 2" }),
-    encuesta3 = new Encuesta({ nombre: "Encuesta 3" })
+let encuesta1 = new Encuesta({   cp: 41013, nombre: "Encuesta 1" }),
+    encuesta2 = new Encuesta({   cp: 41012, nombre: "Encuesta 2" }),
+    encuesta3 = new Encuesta({   cp: 28052,nombre: "Encuesta 3" })
 
 // Preguntas
 let pregunta1 = new Pregunta({
-        cp: 41013,
+
         pregunta: '¿Quién debe de ser el presidente de la comunidad?',
         encuesta: encuesta1._id
     }),
     pregunta2 = new Pregunta({
-        cp: 41013,
+
         pregunta: '¿Consideras las cuentas de este año correctas?',
         encuesta: encuesta1._id
     }),
     pregunta3 = new Pregunta({
-        cp: 41013,
+
         pregunta: '¿En general, estás satisfecho con el antiguo presidente?',
         encuesta: encuesta1._id
     })
 
 let pregunta4 = new Pregunta({
-        cp: 41012,
+
         pregunta: '¿Cual es el mejor juego de nuestra tienda?',
         encuesta: encuesta2._id
     }),
     pregunta5 = new Pregunta({
-        cp: 41012,
+
         pregunta: '¿Qué le parece nuestra politica de precios?',
         encuesta: encuesta2._id
     }),
     pregunta6 = new Pregunta({
-        cp: 41012,
+
         pregunta: '¿En general, como calificarias nuestra tienda?',
         encuesta: encuesta2._id
     })
 
 let pregunta7 = new Pregunta({
-        cp: 28052,
+
         pregunta: '¿Quien debería de ganar las elecciones?',
         encuesta: encuesta3._id
     })

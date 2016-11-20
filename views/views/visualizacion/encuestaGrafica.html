@@ -1,7 +1,7 @@
 <!-- <script src="scripts/js/highcharts.js"></script> -->
 <!-- <script src="scripts/js/highcharts-3d.js"></script> -->
 
-<div ng-show="params.encuesta != null">
+<div ng-show="params.recuento != null">
 
 	<p>
 		<b>Nombre encuesta: </b>{{recuento.nombre}}</p>
@@ -20,7 +20,7 @@
 
 
 
-						<div ng-repeat="opcion in pregunta.opcions">
+						<div ng-repeat="opcion in pregunta.opciones">
 							<input class="opcion{{pregunta._id}}" id="{{opcion.texto}}"
 								type="hidden" value="{{opcion.recuento}}">
 						</div>

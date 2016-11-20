@@ -55,8 +55,8 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 			$http.get(host+"api/resultados/encuestas?encuesta="+$routeParams.encuesta).then(function successCallback(response) {
 				try {
 					console.log("Cargado");
-					$scope.recuento = response['data'];
-					console.log(response['data']);
+					$scope.recuento = response['data'][0];
+					console.log(response['data'][0]);
 
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
