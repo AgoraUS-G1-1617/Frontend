@@ -22,10 +22,6 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 			when('/resultados/encuestas', {
 				templateUrl : 'views/visualizacion/encuesta.html',
 				controller : 'VisualizacionRestController'
-			}).
-			when('/resultados/encuestas?encuesta=:encuesta',{
-				templateUrl : 'views/visualizacion/encuesta.html',
-				controller : 'visualizacionRestController',
 			}).//Errores
 			when('/error',{
 				templateUrl: 'views/main/error.html',

@@ -23,10 +23,17 @@ routes.get('/encuestas', (req, res) => {
 })
 
 routes.get('/preguntas', (req, res) => {
+  if(req.query.encuesta==null){
     Pregunta.find(function(err, preguntas) {
         if (err) res.status(404).json(err)
         res.status(200).json(preguntas)
     })
+  }else{
+    Pregunta.find({encuesta: req.query.encuesta},function(err, preguntas) {
+        if (err) res.status(404).json(err)
+        res.status(200).json(preguntas)
+    })
+  }
 
 })
 

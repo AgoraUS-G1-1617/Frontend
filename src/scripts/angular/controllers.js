@@ -45,8 +45,8 @@ agoraUSControllers.controller('MainViewController', [ '$scope', '$routeParams',
 
 
 //Vista de encuesta visualizacion controller
-agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$routeParams',
-		function($http,$scope, $routeParams) {
+agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$routeParams','$window',
+		function($http,$scope, $routeParams,$window) {
 		//$scope.dataHasLoaded=false;
 		showHeaderAndFooter($scope, "Inicio");
 
@@ -56,8 +56,11 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 				try {
 					console.log("Cargado");
 					$scope.recuento = response['data'][0];
-					console.log(response['data'][0]);
-
+					console.log($scope.recuento);
+					$http.get(host+"api/resultados/preguntas?encuesta="+$routeParams.encuesta).then(function successCallback(datos) {
+						$scope.preguntas=datos['data'];
+						console.log($scope.preguntas);
+				});
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
 				} catch (err) {
@@ -85,10 +88,10 @@ agoraUSControllers.controller('mapaController', ['$http','$scope', '$routeParams
 
 
 
-//controller del mapa
+//controller de estadisticas
 
-agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeParams',
-		function($http,$scope, $routeParams) {
+agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeParams','$window',
+		function($http,$scope, $routeParams,$window) {
 		//$scope.dataHasLoaded=false;
 		showHeaderAndFooter($scope, "Inicio");
 

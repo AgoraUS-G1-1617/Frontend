@@ -1,9 +1,7 @@
-<!-- <script src="scripts/js/highcharts.js"></script> -->
-<!-- <script src="scripts/js/highcharts-3d.js"></script> -->
 
-<div ng-show="params.recuento != null">
+<div ng-show="recuento != null">
 
-	<p>
+ <p>
 		<b>Nombre encuesta: </b>{{recuento.nombre}}</p>
 	<div class="col-xs-6">
 		<table class="table table-responsive table-striped">
@@ -15,12 +13,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="pregunta in recuento.preguntas">
+				<tr ng-repeat="pregunta in preguntas">
 					<td>{{pregunta.pregunta}}
 
 
 
-						<div ng-repeat="opcion in pregunta.opciones">
+						<div ng-show="idActual==pregunta.pregunta" ng-repeat="opcion in opciones">
 							<input class="opcion{{pregunta._id}}" id="{{opcion.texto}}"
 								type="hidden" value="{{opcion.recuento}}">
 						</div>
@@ -54,8 +52,8 @@
 <script  type="text/javascript">
 	var idActual = -1;
 	var datosAct;
-
-	function parseaDatos(boton) {
+  var opciones;
+	function parseaDatos(boton, opciones) {
 		var posicion = boton.id;
 
 		if (idActual != posicion) {
@@ -64,10 +62,10 @@
 			var datos = [];
 
 			idActual = posicion;
-			opciones = document.getElementsByClassName("opcion" + posicion);
+
 			var i;
 			for (i = 0; i < opciones.length; i++) {
-				datos.push([ opciones[i].id, parseInt(opciones[i].value) ]);
+				datos.push([ opciones[i].texto, parseInt(opciones[i].recuento) ]);
 
 			}
 
@@ -91,19 +89,21 @@
 	}
 	function drawPie(boton) {
 		var datos;
-		if (boton) {
-			datos = parseaDatos(boton);
-			$("#representacion").show();
-			//$("#representacion").collapse("show");
-		} else {
-			datos = datosAct;
-		}
+    if (boton) {
+    $.get("http://localhost:3000/api/resultados/opciones/"+boton.id).then(function(response) {
+      opciones=response;
+      console.log(response)
+      datos = parseaDatos(boton,opciones);
+      $("#representacion").show();
+      //$("#representacion").collapse("show");
 
-		pie(datos);
+    pie(datos);
+  });
+    } else {
+        datos = datosAct;
+        pie(datos);
+    }
+
 
 	}
 </script>
-<script src="scripts/js/highcharts.js"></script>
-<script src="scripts/js/highcharts-3d.js"></script>
-<script type="text/javascript" src="scripts/js/estadisticas.js"></script>
-<script src="scripts/js/modules/exporting.js"></script>

@@ -21,6 +21,17 @@
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+	<script type="text/javascript" src="scripts/js/estadisticas.js"></script>
+
+	<!--Esta libreria es incompatible con highcharts, pues se cargan los ficheros
+  dos veces y da error. En su lugar se usan el -more.js y el map.js -->
+	<!-- <script src="scripts/map/highmaps.js"></script> -->
+
+	<script src="scripts/js/highcharts.js"></script>
+	<script src="scripts/js/highcharts-3d.js"></script>
+  <script src="scripts/js/highcharts-more.js"></script>
+ 	<script src="scripts/js/modules/exporting.js"></script>
+
 
 	<!-- Angular Scripts -->
 	<script type="text/javascript" src="scripts/angular.min.js"></script>
@@ -28,6 +39,7 @@
 	<script type="text/javascript" src="scripts/angular/app.js"></script>
 	<script type="text/javascript" src="scripts/angular/controllers.js"></script>
 	<!-- FIN Angular Scripts -->
+
 
 
 	<title>{{title || "AgoraUS"}}</title>

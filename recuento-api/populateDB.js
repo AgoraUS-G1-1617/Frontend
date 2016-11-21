@@ -132,12 +132,12 @@ let opcion9 = new Opcion({
     opcion13 = new Opcion({
         recuento: 1000,
         texto: 'Bien, precio correcto',
-        pregunta: pregunta4._id
+        pregunta: pregunta5._id
     }),
     opcion14 = new Opcion({
         recuento: 10,
         texto: 'Mal, en otras tiendas estan mas baratos',
-        pregunta: pregunta4._id
+        pregunta: pregunta5._id
     })
 
 let opcion15 = new Opcion({
@@ -205,22 +205,22 @@ let opcion16 = new Opcion({
 let opcion27 = new Opcion({
         recuento: 121,
         texto: 'PP',
-        pregunta: pregunta4._id
+        pregunta: pregunta7._id
     }),
     opcion28 = new Opcion({
         recuento: 95,
         texto: 'PSOE',
-        pregunta: pregunta4._id
+        pregunta: pregunta7._id
     }),
     opcion29 = new Opcion({
         recuento: 75,
         texto: 'Podemos',
-        pregunta: pregunta4._id
+        pregunta: pregunta7._id
     }),
     opcion30 = new Opcion({
         recuento: 40,
         texto: 'Ciudadanos',
-        pregunta: pregunta4._id
+        pregunta: pregunta7._id
     }),
     opcion31 = new Opcion({
         recuento: 4,
@@ -230,7 +230,7 @@ let opcion27 = new Opcion({
     opcion32 = new Opcion({
         recuento: 1,
         texto: 'UPyD',
-        pregunta: pregunta4._id
+        pregunta: pregunta7._id
     }),
     opcion33 = new Opcion({
         recuento: 40,
