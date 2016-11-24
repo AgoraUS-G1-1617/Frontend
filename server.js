@@ -14,6 +14,9 @@ app.use(express.static(__dirname + '/src'))
 router.get('/', function(req, res) {
     res.sendFile('index.html')
 })
+router.get('/*', function(req, res) {
+    res.sendFile(__dirname+'/views/index.html')
+})
 app.use(router)
 
 
