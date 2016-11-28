@@ -1,0 +1,134 @@
+
+
+<div>
+
+
+
+<div class="col-xs-6">
+<div style="height:10px;
+"></div>
+<div class="panel panel-primary">
+      <div class="panel-heading"><b>Pregunta/s con mayor cantidad de votos:</b></div>
+
+      <div class="panel-body" ng-repeat="pregunta in prMasVotadas">
+	{{pregunta.pregunta}}
+	</div>
+    </div>
+
+
+
+
+<table class="table table-responsive table-striped">
+<thead>
+	<tr><th></th><th><th></th></tr>
+	</thead>
+	<tbody id="encuestas">
+	</tbody>
+</table>
+</div>
+
+<div  id="representacion" class="col-xs-6"  style="display:none;">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" onclick="drawPie()">Circular</a></li>
+			<li><a data-toggle="tab" onclick="drawColumn()">Columnas</a></li>
+			<li><a data-toggle="tab" onclick="drawSemiCircle()">Semicirculo</a></li>
+			<li><a data-toggle="tab" onclick="drawPie3d()">Circulo 3d</a></li>
+		</ul>
+
+
+<div id="container"></div>
+</div>
+</div>
+
+<script type="text/javascript">
+$.getJSON('http://localhost:3000/api/resultados/encuestas', function (encuestas) {
+	var i;
+	var tablas=document.getElementById("encuestas");
+
+
+	for (i=0;i<encuestas.length;i++){
+		var tabla="<tr style=\"background-color: #4CAF50;color: white;\"><th>Encuesta: "+encuestas[i].nombre+"</th><th><button id='"+encuestas[i].id+"' onclick='drawPie(this)'"
+		+"class='btn btn-success' >Ver grafica</button></th></tr>";
+		tabla+="<tr><th>Pregunta</th><th>Votos totales</th></tr>";
+		var preguntas=encuestas[i].preguntas;
+		var j;
+		for(j=0;j<preguntas.length;j++){
+			var opciones=preguntas[j].opcions;
+			var w;
+			var acum=0;
+			for (w=0;w<opciones.length;w++){
+				acum+=opciones[w].recuento;
+
+			}
+
+			tabla+="<tr><td id='"+ preguntas[j].id+"'class='"+encuestas[i].id+"'>"+preguntas[j].pregunta+"</td><td class='recuento"+preguntas[j].id+"'>"+acum+"</td></tr>";
+
+		}
+
+		tablas.innerHTML+=tabla;
+
+
+	}
+
+
+});
+
+
+var idActual = -1;
+var datosAct;
+
+function parseaDatos(boton) {
+	var posicion = boton.id;
+
+	if (idActual != posicion) {
+
+
+		var datos = [];
+
+		idActual = posicion;
+		preguntas = document.getElementsByClassName(posicion);
+		var i;
+		for(i=0;i<preguntas.length;i++){
+
+			var votos = document.getElementsByClassName("recuento"+preguntas[i].id)[0];
+
+
+				datos.push([ preguntas[i].childNodes[0].nodeValue, parseInt(votos.childNodes[0].nodeValue) ]);
+
+		}
+
+
+
+		datosAct = datos;
+		$(".active").attr('class', '');;
+
+	}
+
+	return datosAct;
+}
+
+function drawColumn() {
+
+	column(datosAct);
+}
+function drawSemiCircle(){
+	semicircle(datosAct);
+}
+function drawPie3d(){
+	pie3d(datosAct);
+}
+function drawPie(boton) {
+	var datos;
+	if (boton) {
+		datos = parseaDatos(boton);
+		$("#representacion").show();
+		//$("#representacion").collapse("show");
+	} else {
+		datos = datosAct;
+	}
+
+	pie(datos,"Numero de votos por cada pregunta de una encuesta");
+
+}
+
+</script>

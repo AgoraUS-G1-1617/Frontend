@@ -1,0 +1,72 @@
+<!-- Barra principal -->
+<!-- 	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Visualizaci�n</a>
+		</div>
+		<div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="#">Page 1</a></li>
+			</ul>
+		</div>
+	</div>
+	</nav> -->
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+   <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="javascript:window.location.replace(getBaseUrl());">AGORA US</a></li>
+
+
+
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ENCUESTAS
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="resultados/encuestas">Ver resultados votaciones</a></li>
+          <li><a href="resultados/mapa">Ver mapa de preguntas</a></li>
+          <!-- <li><a href="resultados/preguntas/estadistica">Ver estad&iacute;sticas</a></li>  -->
+        </ul>
+      </li>
+
+<!--         <li class="dropdown"> -->
+<!--           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE -->
+<!--           <span class="caret"></span></a> -->
+<!--           <ul class="dropdown-menu"> -->
+<!--             <li><a href="#">Merchandise</a></li> -->
+<!--             <li><a href="#">Extras</a></li> -->
+<!--             <li><a href="#">Media</a></li>  -->
+<!--           </ul> -->
+<!--         </li> -->
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid " style="height:50px;background-color: #337AB7;">
+		</div>
+	<script>
+	function getBaseUrl() {
+
+		var loc='';
+		var b = document.getElementsByTagName('base');
+		if (b && b[0] && b[0].href) {
+  			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
+    		loc = loc.substr(1);
+  			loc = b[0].href + loc;
+		}
+		console.log(loc);
+		return loc;
+	}
+	</script>
