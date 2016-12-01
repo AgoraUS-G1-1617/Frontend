@@ -7,7 +7,7 @@
 <script type="text/javascript">
 $(function () {
 
-    $.getJSON('http://localhost:3000/api/resultados/mapa', function (datos) {
+    $.getJSON('/api/resultados/mapa', function (datos) {
     	var geojson=Highcharts.maps["countries/es/es-all"]
         // Prepare the geojson
         var states = Highcharts.geojson(geojson, 'map');

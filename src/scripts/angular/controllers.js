@@ -52,12 +52,12 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 
 
 			$scope.params=$routeParams;
-			$http.get(host+"api/resultados/encuestas?encuesta="+$routeParams.encuesta).then(function successCallback(response) {
+			$http.get("/api/resultados/encuestas?encuesta="+$routeParams.encuesta).then(function successCallback(response) {
 				try {
 					console.log("Cargado");
 					$scope.recuento = response['data'][0];
 					console.log($scope.recuento);
-					$http.get(host+"api/resultados/preguntas?encuesta="+$routeParams.encuesta).then(function successCallback(datos) {
+					$http.get("/api/resultados/preguntas?encuesta="+$routeParams.encuesta).then(function successCallback(datos) {
 						$scope.preguntas=datos['data'];
 						console.log($scope.preguntas);
 				});
@@ -137,9 +137,9 @@ agoraUSControllers.controller('VisualizacionRestController', [
 			$scope.encuestas = [];
 			resultados = '';
 			if ($routeParams.encuesta == null) {
-				resultados = host+'api/resultados/encuestas';
+				resultados = '/api/resultados/encuestas';
 			} else {
-				resultados = host+'api/resultados/encuestas?encuesta='
+				resultados = '/api/resultados/encuestas?encuesta='
 						+ $routeParams.encuesta;
 			}
 			$http.get(resultados).then(function successCallback(response) {

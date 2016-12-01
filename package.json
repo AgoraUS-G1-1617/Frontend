@@ -4,7 +4,8 @@
   "description": "Módulo de visualización de resultados de AgoraUS1617",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "express": "^4.14.0"
   },
   "devDependencies": {
-    "mongoose": "^4.6.8"
+    "mongoose": "^4.6.8",
+    "nodemon": "^1.11.0"
   }
 }

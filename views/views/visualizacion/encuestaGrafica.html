@@ -90,7 +90,7 @@
 	function drawPie(boton) {
 		var datos;
     if (boton) {
-    $.get("http://localhost:3000/api/resultados/opciones/"+boton.id).then(function(response) {
+    $.get("/api/resultados/opciones/"+boton.id).then(function(response) {
       opciones=response;
       console.log(response)
       datos = parseaDatos(boton,opciones);
