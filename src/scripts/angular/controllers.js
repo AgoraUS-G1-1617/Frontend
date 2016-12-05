@@ -97,12 +97,32 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 
 
 			$scope.params=$routeParams;
-			$http.get(host+"api/resultados/preguntas/votadas").then(function successCallback(response) {
+			$http.get('/api/resultados/encuestas/votadas').then(function successCallback(response) {
 				try {
-					console.log("Cargado");
-					$scope.prMasVotadas = response['data'];
-					console.log($scope.prMasVotadas);
-
+					console.log(response);
+					console.log(angular.fromJson(response['data']));
+					console.log(response['data'])
+					encuestas=[];
+					sumaMax=0;
+					index=0;
+					for  (var encuesta in response['data']){
+						suma=0;
+						for (var pregunta in encuesta['preguntas']){
+							for(var opcion in pregunta['opciones']){
+								suma+=opcion['votos'];
+							}
+						}
+						if(encuestas.length==0||suma>sumaMax){
+							encuestas=[encuesta];
+							index=1;
+							sumaMax=suma;
+						}else if(suma==sumaMax)
+						{
+							encuestas[index]=encuesta;
+							index++;
+						}
+					}
+					$scope.encuestas = encuestas;
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
 				} catch (err) {
@@ -112,16 +132,7 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 				alert('Error obteniendo el objeto JSON');
 			});
 
-
-
-
-
-
-
 		} ]);
-
-
-
 
 
 

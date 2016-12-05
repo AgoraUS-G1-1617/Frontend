@@ -177,4 +177,14 @@ routes.get('/mapa', (req, res) => {
     })
 
 })
+
+routes.get('/encuestas/votadas', (req, res) => {
+    var filter = {}
+
+    Encuesta.find( filter , (err, encuestas) => {
+        if (err) res.status(404).json(err)
+        res.status(200).json(encuestas)
+    })
+
+})
 module.exports = routes
