@@ -1,4 +1,4 @@
-var agoraUSApp = angular.module('AgoraUS', [ 'ngRoute', 'AgoraUSControllers' ]);
+var agoraUSApp = angular.module('AgoraUS', [ 'ngRoute', 'AgoraUSControllers' ,'pascalprecht.translate']);
 
 agoraUSApp.config([ '$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider) {
@@ -37,3 +37,30 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 			// configure html5 to get links working on jsfiddle
 			$locationProvider.html5Mode(true);
 		} ]);
+
+//Configuracion del i18n. Aquí van todos los textos
+    agoraUSApp.config(['$translateProvider', function ($translateProvider) {
+      $translateProvider.translations('en', {
+        'ENCUESTAS':'SURVEYS',
+    'VerResultados':'See survey results',
+    'VerEstadisticas':'See statistics',
+    'VerMapa':'See map',
+		'error':'We are sorry, an error occured or the page does not exist.',
+		'backToMain':'Back to main page',
+        BUTTON_LANG_ES: 'Spanish',
+        BUTTON_LANG_EN: 'English'
+      });
+
+      $translateProvider.translations('es', {
+        'ENCUESTAS':'ENCUESTAS',
+        'VerResultados':'Ver resultados votaciones',
+        'VerEstadisticas':'Ver estadísticas',
+        'VerMapa':'Ver mapa',
+				'error':'Lo sentimos, se ha producido un error al intentar acceder a la página, o la página no existe.',
+				'backToMain':'Volver al inicio',
+        BUTTON_LANG_ES: 'Español',
+        BUTTON_LANG_EN: 'Inglés'
+      });
+
+      $translateProvider.preferredLanguage('es');
+    }]);

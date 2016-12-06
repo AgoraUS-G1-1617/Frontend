@@ -17,12 +17,16 @@ function showHeaderAndFooter($scope, title) {
 	};
 }
 // Header y Footer
-agoraUSControllers.controller('MainController', [ '$scope', '$route',
+agoraUSControllers.controller('MainController', [ '$scope', '$route','$translate',
 		'$routeParams', '$location',
-		function($scope, $route, $routeParams, $location) {
+		function($scope, $route, $translate,$routeParams, $location) {
 			$scope.$route = $route;
 			$scope.$location = $location;
 			$scope.$routeParams = $routeParams;
+			//función para cambiar el idioma
+			$scope.changeLanguage = function (langKey) {
+				$translate.use(langKey);
+			};
 			showHeaderAndFooter($scope, null);
 			$scope.dataHasLoaded=true;//Hay que ponerlo al final para que angular cargue la vista despues de la ejecucion del controlador
 		} ]);
