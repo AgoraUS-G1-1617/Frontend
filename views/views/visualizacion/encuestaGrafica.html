@@ -7,7 +7,7 @@
 		<table class="table table-responsive table-striped ">
 			<thead>
 				<tr>
-					<th>Preguntas</th>
+					<th>{{'Preguntas'|translate}}</th>
 					<th></th>
 
 				</tr>
@@ -28,7 +28,7 @@
 
 
 					<td><button onclick="drawPie(this)" id="{{pregunta._id}}"
-							class="btn btn-success" >Ver gr&aacute;fica</button></td>
+							class="btn btn-success" >{{'VerGrafica'|translate}}</button></td>
 
 
 				</tr>
@@ -38,10 +38,10 @@
 	</div>
 	<div  id="representacion" class="col-xs-12 col-sm-6"  style="display:none;">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" onclick="drawPie()">Circular</a></li>
-			<li><a data-toggle="tab" onclick="drawColumn()">Columnas</a></li>
-			<li><a data-toggle="tab" onclick="drawSemiCircle()">Semicirculo</a></li>
-			<li><a data-toggle="tab" onclick="drawPie3d()">Circulo 3d</a></li>
+			<li class="active"><a data-toggle="tab" onclick="drawPie()">{{'Circular'|translate}}</a></li>
+			<li><a data-toggle="tab" onclick="drawColumn()">{{'Columnas'|translate}}</a></li>
+			<li><a data-toggle="tab" onclick="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+			<li><a data-toggle="tab" onclick="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
 		</ul>
 
 
