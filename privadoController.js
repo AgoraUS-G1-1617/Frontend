@@ -1,10 +1,10 @@
 // Imports
-const http = require('https'),
+const http = require('http'),
 express = require('express'),
 app = express(),
 router = express.Router(),
-recuentoHost='recuento.agoraus1.egc.duckdns.org', // recuento.agoraus1.egc.duckdns.org
-recuentoPort=443 //443
+recuentoHost='localhost',
+recuentoPort=3000
 
 peticion = (options, res) => {
   http.request(options, (response) => {
@@ -33,25 +33,23 @@ router.get('/resultados/encuestas', function(req, res) {
     path: '/api/resultados/encuestas'
   }
   if(encuesta!=null){       //if we are requesting a single poll
-    console.log("HOLA")
     const options = {
       host: recuentoHost,
       port: recuentoPort,
-      path: '/api/recontarVotacion?idVotacion='+encuesta
+      path: '/api/resultados/encuestas?encuesta='+encuesta
   }
 }
-  console.log(options.host)
   peticion(options, res)
 })
 
 // Visualizacion de estadísticas
-router.get('/resultados/preguntas/votadas', function(req, res) {
+router.get('/resultados/encuestas/votadas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
 
   const options = {
     host: recuentoHost,
     port: recuentoPort,
-    path: '/api/resultados/preguntas/votadas'
+    path: '/api/resultados/encuestas/votadas'
   }
   peticion(options, res)
 })
