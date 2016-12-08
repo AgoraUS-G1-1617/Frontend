@@ -65,6 +65,10 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Circulo3D':'3D Circle',
 				'FrecuenciaEncuestas':'Survey density by cities',
 				'EncuestaMasVotada':'Most popular survey/s:',
+				'Entrar':'Sign in',
+				'Deliberaciones':'Deliberations',
+				'Censos':'Census',
+				'Cabina Telegram':'Telegram Poll',
       });
 
       $translateProvider.translations('es', {
@@ -94,6 +98,10 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Circulo3D':'Circulo 3D',
 				'FrecuenciaEncuestas':'Frecuencia de encuestas por ciudad',
 				'EncuestaMasVotada':'Encuesta/s con mayor cantidad de votos:',
+				'Entrar':'Entrar',
+				'Deliberaciones':'Deliberaciones',
+				'Censos':'Censos',
+				'Cabina Telegram':'Cabina Telegram',
       });
 
       $translateProvider.preferredLanguage('es');
