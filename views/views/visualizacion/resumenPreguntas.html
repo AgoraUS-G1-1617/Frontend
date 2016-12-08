@@ -8,10 +8,10 @@
 <div style="height:10px;
 "></div>
 <div class="panel panel-primary">
-      <div class="panel-heading"><b>Pregunta/s con mayor cantidad de votos:</b></div>
+      <div class="panel-heading"><b>{{'EncuestaMasVotada'|translate}}</b></div>
 
-      <div class="panel-body" ng-repeat="pregunta in prMasVotadas">
-	{{pregunta.pregunta}}
+      <div class="panel-body" ng-repeat="encuesta in enMasVotadas">
+	{{encuesta.titulo}}
 	</div>
     </div>
 
@@ -29,10 +29,10 @@
 
 <div  id="representacion" class="col-xs-6"  style="display:none;">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" onclick="drawPie()">Circular</a></li>
-			<li><a data-toggle="tab" onclick="drawColumn()">Columnas</a></li>
-			<li><a data-toggle="tab" onclick="drawSemiCircle()">Semicirculo</a></li>
-			<li><a data-toggle="tab" onclick="drawPie3d()">Circulo 3d</a></li>
+      <li class="active"><a data-toggle="tab" onclick="drawPie()">{{'Circular'|translate}}</a></li>
+      <li><a data-toggle="tab" onclick="drawColumn()">{{'Columnas'|translate}}</a></li>
+      <li><a data-toggle="tab" onclick="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+      <li><a data-toggle="tab" onclick="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
 		</ul>
 
 

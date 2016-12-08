@@ -45,13 +45,13 @@ router.get('/resultados/encuestas', function(req, res) {
 })
 
 // Visualizacion de estadísticas
-router.get('/resultados/preguntas/votadas', function(req, res) {
+router.get('/resultados/encuestas/votadas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
 
   const options = {
     host: recuentoHost,
     port: recuentoPort,
-    path: '/api/resultados/preguntas/votadas'
+    path: '/api/resultados/encuestas/votadas'
   }
   peticion(options, res)
 })
