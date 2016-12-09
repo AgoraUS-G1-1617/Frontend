@@ -59,12 +59,12 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 			$http.get("/api/resultados/encuestas?encuesta="+$routeParams.encuesta).then(function successCallback(response) {
 				try {
 					console.log("Cargado");
+					$scope.recuento = response['data'];
+					if($scope.recuento==null){
 					$scope.recuento = response['data'][0];
+				}
 					console.log($scope.recuento);
-					$http.get("/api/resultados/preguntas?encuesta="+$routeParams.encuesta).then(function successCallback(datos) {
-						$scope.preguntas=datos['data'];
-						console.log($scope.preguntas);
-				});
+				
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
 				} catch (err) {
@@ -74,8 +74,61 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 			}, function errorCallback(response) {
 				alert('Error obteniendo el objeto JSON');
 			});
+			$scope.idActual = -1;
+			$scope.datosAct;
+		  $scope.opciones;
+			$scope.drawColumn=function drawColumn() {
+				column($scope.datosAct);
+			}
+			$scope.drawSemiCircle=function drawSemiCircle(){
+				semicircle($scope.datosAct);
+			}
+			$scope.drawPie3d=function drawPie3d(){
+				pie3d($scope.datosAct);
+			}
+			$scope.parseaDatos=function parseaDatos(boton, opciones) {
+				var posicion = boton.id_pregunta;
+				console.log(posicion)
+				console.log(opciones)
+
+				if ($scope.idActual != posicion) {
+
+					//[ [ "Si", parseInt(numSi) ], [ "No", parseInt(numNo) ] ]
+					var datos = [];
+
+					$scope.idActual = posicion;
+
+					var i;
+					for (i = 0; i < opciones.length; i++) {
+						datos.push([ opciones[i].nombre, parseInt(opciones[i].votos) ]);
+
+					}
+
+					$scope.datosAct = datos;
+					$(".active").attr('class', '');;
+
+				}
+
+				return $scope.datosAct;
+			}
+
+			$scope.drawPie=function drawPie(pregunta) {
+				var datos;
+		    if (pregunta) {
+
+		      $scope.opciones=pregunta.opciones;
+		      console.log(pregunta)
+		      datos = $scope.parseaDatos(pregunta,$scope.opciones);
+		      $("#representacion").show();
+		      //$("#representacion").collapse("show");
+		    pie(datos);
+		    } else {
+		        datos = $scope.datosAct;
+		        pie(datos);
+		    }
 
 
+			}
 		} ]);
 
 //controller del mapa
@@ -104,32 +157,12 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 			$http.get('/api/resultados/encuestas/votadas').then(function successCallback(response) {
 				try {
 					console.log(response);
-					console.log(angular.fromJson(response['data']));
-					console.log(response['data'])
-					encuestas=[];
-					sumaMax=0;
-					index=0;
-					for  (var encuesta in response['data']){
-						suma=0;
-						for (var pregunta in encuesta['preguntas']){
-							for(var opcion in pregunta['opciones']){
-								suma+=opcion['votos'];
-							}
-						}
-						if(encuestas.length==0||suma>sumaMax){
-							encuestas=[encuesta];
-							index=1;
-							sumaMax=suma;
-						}else if(suma==sumaMax)
-						{
-							encuestas[index]=encuesta;
-							index++;
-						}
-					}
-					$scope.encuestas = encuestas;
+					original=response['data']
+					$scope.encuestas = original;
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
 				} catch (err) {
+
 					$window.location.href = "/error";
 				}
 			}, function errorCallback(response) {

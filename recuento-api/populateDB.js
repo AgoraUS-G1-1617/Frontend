@@ -29,212 +29,212 @@ let encuesta1 = new Encuesta({   cp: 41013, nombre: "Encuesta 1" }),
 // Preguntas
 let pregunta1 = new Pregunta({
 
-        pregunta: '¿Quién debe de ser el presidente de la comunidad?',
+        titulo: '¿Quién debe de ser el presidente de la comunidad?',
         encuesta: encuesta1._id
     }),
     pregunta2 = new Pregunta({
 
-        pregunta: '¿Consideras las cuentas de este año correctas?',
+        titulo: '¿Consideras las cuentas de este año correctas?',
         encuesta: encuesta1._id
     }),
     pregunta3 = new Pregunta({
 
-        pregunta: '¿En general, estás satisfecho con el antiguo presidente?',
+        titulo: '¿En general, estás satisfecho con el antiguo presidente?',
         encuesta: encuesta1._id
     })
 
 let pregunta4 = new Pregunta({
 
-        pregunta: '¿Cual es el mejor juego de nuestra tienda?',
+        titulo: '¿Cual es el mejor juego de nuestra tienda?',
         encuesta: encuesta2._id
     }),
     pregunta5 = new Pregunta({
 
-        pregunta: '¿Qué le parece nuestra politica de precios?',
+        titulo: '¿Qué le parece nuestra politica de precios?',
         encuesta: encuesta2._id
     }),
     pregunta6 = new Pregunta({
 
-        pregunta: '¿En general, como calificarias nuestra tienda?',
+        titulo: '¿En general, como calificarias nuestra tienda?',
         encuesta: encuesta2._id
     })
 
 let pregunta7 = new Pregunta({
 
-        pregunta: '¿Quien debería de ganar las elecciones?',
+        titulo: '¿Quien debería de ganar las elecciones?',
         encuesta: encuesta3._id
     })
 
 // Opciones
 let opcion1 = new Opcion({
-        recuento: 10,
-        texto: 'Manuel',
+        votos: 10,
+        nombre: 'Manuel',
         pregunta: pregunta1._id
     }),
     opcion2 = new Opcion({
-        recuento: 3,
-        texto: 'Juan',
+        votos: 3,
+        nombre: 'Juan',
         pregunta: pregunta1._id
     }),
     opcion3 = new Opcion({
-        recuento: 0,
-        texto: 'Antonio',
+        votos: 0,
+        nombre: 'Antonio',
         pregunta: pregunta1._id
     })
 
 let opcion4 = new Opcion({
-        recuento: 20,
-        texto: 'Sí',
+        votos: 20,
+        nombre: 'Sí',
         pregunta: pregunta2._id
     }),
     opcion5 = new Opcion({
-        recuento: 1,
-        texto: 'No',
+        votos: 1,
+        nombre: 'No',
         pregunta: pregunta2._id
     })
 
 let opcion6 = new Opcion({
-        recuento: 19,
-        texto: 'Sí',
+        votos: 19,
+        nombre: 'Sí',
         pregunta: pregunta3._id
     }),
     opcion7 = new Opcion({
-        recuento: 1,
-        texto: 'No',
+        votos: 1,
+        nombre: 'No',
         pregunta: pregunta3._id
     }),
     opcion8 = new Opcion({
-        recuento: 3,
-        texto: 'NS/NC',
+        votos: 3,
+        nombre: 'NS/NC',
         pregunta: pregunta3._id
     })
 
 let opcion9 = new Opcion({
-        recuento: 40,
-        texto: 'Fifa 2016',
+        votos: 40,
+        nombre: 'Fifa 2016',
         pregunta: pregunta4._id
     }),
     opcion10 = new Opcion({
-        recuento: 2,
-        texto: 'Pro Evolution 2016',
+        votos: 2,
+        nombre: 'Pro Evolution 2016',
         pregunta: pregunta4._id
     }),
     opcion11 = new Opcion({
-        recuento: 77,
-        texto: 'World Of Warcraft',
+        votos: 77,
+        nombre: 'World Of Warcraft',
         pregunta: pregunta4._id
     }),
     opcion12 = new Opcion({
-        recuento: 100,
-        texto: 'Call Of Duty',
+        votos: 100,
+        nombre: 'Call Of Duty',
         pregunta: pregunta4._id
     }),
     opcion13 = new Opcion({
-        recuento: 1000,
-        texto: 'Bien, precio correcto',
+        votos: 1000,
+        nombre: 'Bien, precio correcto',
         pregunta: pregunta5._id
     }),
     opcion14 = new Opcion({
-        recuento: 10,
-        texto: 'Mal, en otras tiendas estan mas baratos',
+        votos: 10,
+        nombre: 'Mal, en otras tiendas estan mas baratos',
         pregunta: pregunta5._id
     })
 
 let opcion15 = new Opcion({
-        recuento: 100,
-        texto: 'Muy caros',
+        votos: 100,
+        nombre: 'Muy caros',
         pregunta: pregunta5._id
     })
 
 let opcion16 = new Opcion({
-        recuento: 2,
-        texto: '0',
+        votos: 2,
+        nombre: '0',
         pregunta: pregunta6._id
     }),
     opcion17 = new Opcion({
-        recuento: 5,
-        texto: '1',
+        votos: 5,
+        nombre: '1',
         pregunta: pregunta6._id
     }),
     opcion18 = new Opcion({
-        recuento: 2,
-        texto: '2',
+        votos: 2,
+        nombre: '2',
         pregunta: pregunta6._id
     }),
     opcion19 = new Opcion({
-        recuento: 8,
-        texto: '3',
+        votos: 8,
+        nombre: '3',
         pregunta: pregunta6._id
     }),
     opcion20 = new Opcion({
-        recuento: 2,
-        texto: '4',
+        votos: 2,
+        nombre: '4',
         pregunta: pregunta6._id
     }),
     opcion21 = new Opcion({
-        recuento: 9,
-        texto: '5',
+        votos: 9,
+        nombre: '5',
         pregunta: pregunta6._id
     }),
     opcion22 = new Opcion({
-        recuento: 8,
-        texto: '6',
+        votos: 8,
+        nombre: '6',
         pregunta: pregunta6._id
     }),
     opcion23 = new Opcion({
-        recuento: 4,
-        texto: '7',
+        votos: 4,
+        nombre: '7',
         pregunta: pregunta6._id
     }),
     opcion24 = new Opcion({
-        recuento: 2,
-        texto: '8',
+        votos: 2,
+        nombre: '8',
         pregunta: pregunta6._id
     }),
     opcion25 = new Opcion({
-        recuento: 2,
-        texto: '9',
+        votos: 2,
+        nombre: '9',
         pregunta: pregunta6._id
     }),
     opcion26 = new Opcion({
-        recuento: 1,
-        texto: '10',
+        votos: 1,
+        nombre: '10',
         pregunta: pregunta6._id
     })
 
 let opcion27 = new Opcion({
-        recuento: 121,
-        texto: 'PP',
+        votos: 121,
+        nombre: 'PP',
         pregunta: pregunta7._id
     }),
     opcion28 = new Opcion({
-        recuento: 95,
-        texto: 'PSOE',
+        votos: 95,
+        nombre: 'PSOE',
         pregunta: pregunta7._id
     }),
     opcion29 = new Opcion({
-        recuento: 75,
-        texto: 'Podemos',
+        votos: 75,
+        nombre: 'Podemos',
         pregunta: pregunta7._id
     }),
     opcion30 = new Opcion({
-        recuento: 40,
-        texto: 'Ciudadanos',
+        votos: 40,
+        nombre: 'Ciudadanos',
         pregunta: pregunta7._id
     }),
     opcion31 = new Opcion({
-        recuento: 4,
-        texto: 'Fifa 2016',
+        votos: 4,
+        nombre: 'Fifa 2016',
         pregunta: pregunta4._id
     }),
     opcion32 = new Opcion({
-        recuento: 1,
-        texto: 'UPyD',
+        votos: 1,
+        nombre: 'UPyD',
         pregunta: pregunta7._id
     }),
     opcion33 = new Opcion({
-        recuento: 40,
-        texto: 'Otros',
+        votos: 40,
+        nombre: 'Otros',
         pregunta: pregunta4._id
     })
 

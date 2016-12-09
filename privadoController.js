@@ -27,13 +27,13 @@ router.get('/resultados/encuestas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
   var encuesta=req.query.encuesta
 
-  const options = {
+  var options = {
     host: recuentoHost,
     port: recuentoPort,
     path: '/api/resultados/encuestas'
   }
   if(encuesta!=null){       //if we are requesting a single poll
-    const options = {
+    options = {
       host: recuentoHost,
       port: recuentoPort,
       path: '/api/resultados/encuestas?encuesta='+encuesta
