@@ -1,25 +1,27 @@
  <hr />
 <div id="resultados" class="container-fluid text-center encuestas">
-<!--<H5> Ayudamos a mejorar. Agora@us es un sistema de votaciones gratuito.</H5>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_donations">
-<!--
- A este correo se redirigen las donaciones, que son de un importe fijo de 5 euros. Se pouede moficiar en cualquier momento.
- -->
-<!--<input type="hidden" name="business" value="suzfsr@gmail.com">
-<input type="hidden" name="lc" value="ES">
-<input type="hidden" name="item_name" value="Agora@US">
-<input type="hidden" name="amount" value="5.00">
-<input type="hidden" name="currency_code" value="EUR">
-<input type="hidden" name="no_note" value="0">
-<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
-<input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal. La forma r�pida y segura de pagar en Internet.">
-<img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1">
-</form>
--->
-<b>Copyright &copy; {{date | date:'yyyy'}} AgoraUS</b> <div>
+<b>Copyright &copy; {{date | date:'yyyy'}} AgoraUS</b>
+<div>
   <button class="button btn-sm btn-primary" ng-click="changeLanguage('es')" translate="BUTTON_LANG_ES"></button>
- <button  class="button btn-sm btn-primary" ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></button>
-
+  <button  class="button btn-sm btn-primary" ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></button>
 </div>
+</div>
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'es'}
+</script>
+
+<script type="text/javascript">
+   SocialShareKit.init({
+      selector: '.ssk-group .ssk',
+      url: 'https://github.com/AgoraUS-G1-1617/', // this is url of my home page
+      text: 'Por unas encuestas más limpias, más seguras... más (añada adjetivo en plural)' // text to share
+   });
+</script>
+
+<!-- Left & centered positioning -->
+<div class="ssk-sticky ssk-left ssk-center ssk-lg ssk-group">
+    <a href="" class="ssk ssk-facebook" ></a>
+    <a href="" class="ssk ssk-twitter"></a>
+    <a href="" class="ssk ssk-google-plus"></a>
+    <a href="" class="ssk ssk-email"></a>
 </div>

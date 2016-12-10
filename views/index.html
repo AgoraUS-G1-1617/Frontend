@@ -12,6 +12,9 @@
 	<!-- FIN EGC -->
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
+	<!-- Social Share Kit CSS -->
+	<link rel="stylesheet" href="/styles/social-share-kit.css" type="text/css">
+
 <base href='/'/>
 
 	<!-- Esto sirve para que coja las rutas a partir de la url de la aplicacion. Se necesita porque se ha especificado en app.js el $locationProvider.html5(true) -->
@@ -42,6 +45,9 @@
 	<script type="text/javascript" src="scripts/angular/controllers.js"></script>
 	<!-- FIN Angular Scripts -->
 
+	<!-- Social Share Kit JS -->
+	<script type="text/javascript" src="scripts/social-share-kit.min.js"></script>
+
 
 	<title>{{title || "AgoraUS"}}</title>
 </head>
@@ -63,7 +69,9 @@
 	<div>
 		<div ng-include="footer.url"></div>
 	</div>
-
+	<br>
+	<br>
+	<br>
 </body>
 
 </html>
