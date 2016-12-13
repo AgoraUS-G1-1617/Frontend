@@ -52,7 +52,7 @@ agoraUSControllers.controller('MainViewController', [ '$scope', '$routeParams',
 agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$routeParams','$window',
 		function($http,$scope, $routeParams,$window) {
 		//$scope.dataHasLoaded=false;
-		showHeaderAndFooter($scope, "Inicio");
+		showHeaderAndFooter($scope, "Encuestas");
 
 
 			$scope.params=$routeParams;
@@ -64,7 +64,7 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 					$scope.recuento = response['data'][0];
 				}
 					console.log($scope.recuento);
-				
+
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
 				} catch (err) {
@@ -105,7 +105,7 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 					}
 
 					$scope.datosAct = datos;
-					$(".active").attr('class', '');;
+
 
 				}
 
