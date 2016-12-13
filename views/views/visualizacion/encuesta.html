@@ -1,8 +1,9 @@
-
+<br>
+<div class="container">
 	<table class="table table-responsive table-striped">
 		<thead>
 			<tr>
-				<th>Nombre</th>
+				<th>{{'Name'|translate}}</th>
 
 				<th>
 					<!-- Vacio para que muestre solo el enlace -->
@@ -14,8 +15,8 @@
 			<tr ng-repeat="encuesta in encuestas">
 				<td>{{encuesta.nombre}}</td>
 
-				<td><a class="btn btn-success" href="resultados/encuestas/ver?encuesta={{encuesta._id}}">Ver
-						resultados</a></td>
+				<td><a class="btn btn-success" href="resultados/encuestas/ver?encuesta={{encuesta._id}}">{{'Resultados'|translate}}</a></td>
 			</tr>
 		</tbody>
 	</table>
+</div>

@@ -11,6 +11,14 @@
 	crossorigin="anonymous">
 	<!-- FIN EGC -->
 	<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+	<!-- Social Share Kit CSS -->
+	<link rel="stylesheet" href="/styles/social-share-kit.css" type="text/css">
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
 	<!-- Esto sirve para que coja las rutas a partir de la url de la aplicacion. Se necesita porque se ha especificado en app.js el $locationProvider.html5(true) -->
   <base href='/'/>
 
@@ -33,10 +41,16 @@
 	<!-- Angular Scripts -->
 	<script type="text/javascript" src="scripts/angular.min.js"></script>
 	<script type="text/javascript" src="scripts/angular-route.min.js"></script>
+	<!-- Script de i18n-->
+<script type="text/javascript" src="scripts/angular-translate/angular-translate.js"></script>
+<script type="text/javascript" src="scripts/angular-translate/angular-translate.min.js"></script>
+
 	<script type="text/javascript" src="scripts/angular/app.js"></script>
 	<script type="text/javascript" src="scripts/angular/controllers.js"></script>
 	<!-- FIN Angular Scripts -->
 
+	<!-- Social Share Kit JS -->
+	<script type="text/javascript" src="scripts/social-share-kit.min.js"></script>
 
 
 	<title>{{title || "AgoraUS"}}</title>
@@ -59,7 +73,9 @@
 	<div>
 		<div ng-include="footer.url"></div>
 	</div>
-
+	<br>
+	<br>
+	<br>
 </body>
 
 </html>

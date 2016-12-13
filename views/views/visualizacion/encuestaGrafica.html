@@ -1,34 +1,34 @@
 
 <div ng-show="recuento != null">
 
-  <h1 class="text-center">{{recuento.nombre}}</h1>
-
-  <div class="col-xs-6">
-		<table class="table table-responsive table-striped">
+  <h1 class="text-center">{{recuento.estado}}</h1>
+  <br>
+  <div class="col-xs-12 col-sm-6">
+		<table class="table table-responsive table-striped ">
 			<thead>
 				<tr>
-					<th>Preguntas</th>
-
+					<th>{{'Preguntas'|translate}}</th>
+					<th></th>
 
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="pregunta in preguntas">
-					<td>{{pregunta.pregunta}}
+				<tr ng-repeat="pregunta in recuento.preguntas">
+					<td>{{pregunta.titulo}}
 
 
 
-						<div ng-show="idActual==pregunta.pregunta" ng-repeat="opcion in opciones">
-							<input class="opcion{{pregunta._id}}" id="{{opcion.texto}}"
-								type="hidden" value="{{opcion.recuento}}">
+						<div class="text-center" ng-show="idActual==pregunta.id_pregunta" ng-repeat="opcion in pregunta.opciones">
+                {{opcion.nombre}}: {{opcion.votos}}
+                <br>
 						</div>
 
 					</td>
 
 
 
-					<td><button onclick="drawPie(this)" id="{{pregunta._id}}"
-							class="btn btn-success" >Ver gr&aacute;fica</button></td>
+					<td><button ng-click="drawPie(pregunta)"  id="{{pregunta.id_pregunta}}"
+							class="btn btn-success" >{{'VerGrafica'|translate}}</button></td>
 
 
 				</tr>
@@ -36,12 +36,12 @@
 			</tbody>
 		</table>
 	</div>
-	<div  id="representacion" class="col-xs-6"  style="display:none;">
+	<div  id="representacion" class="col-xs-12 col-sm-6"  style="display:none;">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" onclick="drawPie()">Circular</a></li>
-			<li><a data-toggle="tab" onclick="drawColumn()">Columnas</a></li>
-			<li><a data-toggle="tab" onclick="drawSemiCircle()">Semicirculo</a></li>
-			<li><a data-toggle="tab" onclick="drawPie3d()">Circulo 3d</a></li>
+			<li class="active"><a data-toggle="tab"  ng-click="drawPie()">{{'Circular'|translate}}</a></li>
+			<li><a data-toggle="tab" ng-click="drawColumn()">{{'Columnas'|translate}}</a></li>
+			<li><a data-toggle="tab" ng-click="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+			<li><a data-toggle="tab" ng-click="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
 		</ul>
 
 
@@ -49,61 +49,3 @@
 		<div id="container"></div>
 	</div>
 </div>
-<script  type="text/javascript">
-	var idActual = -1;
-	var datosAct;
-  var opciones;
-	function parseaDatos(boton, opciones) {
-		var posicion = boton.id;
-
-		if (idActual != posicion) {
-
-			//[ [ "Si", parseInt(numSi) ], [ "No", parseInt(numNo) ] ]
-			var datos = [];
-
-			idActual = posicion;
-
-			var i;
-			for (i = 0; i < opciones.length; i++) {
-				datos.push([ opciones[i].texto, parseInt(opciones[i].recuento) ]);
-
-			}
-
-			datosAct = datos;
-			$(".active").attr('class', '');;
-
-		}
-
-		return datosAct;
-	}
-
-	function drawColumn() {
-
-		column(datosAct);
-	}
-	function drawSemiCircle(){
-		semicircle(datosAct);
-	}
-	function drawPie3d(){
-		pie3d(datosAct);
-	}
-	function drawPie(boton) {
-		var datos;
-    if (boton) {
-    $.get("/api/resultados/opciones/"+boton.id).then(function(response) {
-      opciones=response;
-      console.log(response)
-      datos = parseaDatos(boton,opciones);
-      $("#representacion").show();
-      //$("#representacion").collapse("show");
-
-    pie(datos);
-  });
-    } else {
-        datos = datosAct;
-        pie(datos);
-    }
-
-
-	}
-</script>

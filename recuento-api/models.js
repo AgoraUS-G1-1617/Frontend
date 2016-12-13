@@ -7,7 +7,7 @@ module.exports.Encuesta = mongoose.model('Encuesta', {
 
 module.exports.Pregunta = mongoose.model('Pregunta', {
 
-    pregunta: String,
+    titulo: String,
     encuesta: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Encuesta'
@@ -15,8 +15,8 @@ module.exports.Pregunta = mongoose.model('Pregunta', {
 })
 
 module.exports.Opcion = mongoose.model('Opcion', {
-    recuento: Number,
-    texto: String,
+    votos: Number,
+    nombre: String,
     pregunta: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pregunta'

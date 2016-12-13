@@ -8,10 +8,10 @@
 <div style="height:10px;
 "></div>
 <div class="panel panel-primary">
-      <div class="panel-heading"><b>Pregunta/s con mayor cantidad de votos:</b></div>
+      <div class="panel-heading"><b>{{'EncuestaMasVotada'|translate}}</b></div>
 
-      <div class="panel-body" ng-repeat="pregunta in prMasVotadas">
-	{{pregunta.pregunta}}
+      <div class="panel-body" ng-repeat="encuesta in enMasVotadas">
+	{{encuesta.nombre}}
 	</div>
     </div>
 
@@ -29,10 +29,10 @@
 
 <div  id="representacion" class="col-xs-6"  style="display:none;">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" onclick="drawPie()">Circular</a></li>
-			<li><a data-toggle="tab" onclick="drawColumn()">Columnas</a></li>
-			<li><a data-toggle="tab" onclick="drawSemiCircle()">Semicirculo</a></li>
-			<li><a data-toggle="tab" onclick="drawPie3d()">Circulo 3d</a></li>
+      <li class="active"><a data-toggle="tab" onclick="drawPie()">{{'Circular'|translate}}</a></li>
+      <li><a data-toggle="tab" onclick="drawColumn()">{{'Columnas'|translate}}</a></li>
+      <li><a data-toggle="tab" onclick="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+      <li><a data-toggle="tab" onclick="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
 		</ul>
 
 
@@ -41,34 +41,48 @@
 </div>
 
 <script type="text/javascript">
-$.getJSON('/api/resultados/encuestas', function (encuestas) {
+$.getJSON('/api/resultados/encuestas/votadas', function (encuestas) {
 	var i;
 	var tablas=document.getElementById("encuestas");
 
-
+  var maxAcum=0,maxI=0;
 	for (i=0;i<encuestas.length;i++){
-		var tabla="<tr style=\"background-color: #4CAF50;color: white;\"><th>Encuesta: "+encuestas[i].nombre+"</th><th><button id='"+encuestas[i].id+"' onclick='drawPie(this)'"
-		+"class='btn btn-success' >Ver grafica</button></th></tr>";
-		tabla+="<tr><th>Pregunta</th><th>Votos totales</th></tr>";
+
 		var preguntas=encuestas[i].preguntas;
 		var j;
+  var acum=0;
 		for(j=0;j<preguntas.length;j++){
-			var opciones=preguntas[j].opcions;
+			var opciones=preguntas[j].opciones;
 			var w;
-			var acum=0;
 			for (w=0;w<opciones.length;w++){
-				acum+=opciones[w].recuento;
+				acum+=opciones[w].votos;
 
 			}
 
-			tabla+="<tr><td id='"+ preguntas[j].id+"'class='"+encuestas[i].id+"'>"+preguntas[j].pregunta+"</td><td class='recuento"+preguntas[j].id+"'>"+acum+"</td></tr>";
-
 		}
-
-		tablas.innerHTML+=tabla;
-
+    if (acum>maxAcum){
+    maxAcum=acum;
+    maxI=i;
+    }
 
 	}
+
+  var tabla="<tr style=\"background-color: #4CAF50;color: white;\"><th>Encuesta: "+encuestas[maxI].nombre+"</th><th><button id='"+encuestas[maxI].id+"' onclick='drawPie(this)'"
+  +"class='btn btn-success' >Ver grafica</button></th></tr>";
+  tabla+="<tr><th>Pregunta</th><th>Votos totales: "+maxAcum+"</th></tr>";
+for (j=0;j<encuestas[maxI].preguntas.length;j++){
+  var opciones=encuestas[maxI].preguntas[j].opciones;
+  var w;
+  var acum=0;
+
+  for (w=0;w<opciones.length;w++){
+    acum+=opciones[w].votos;
+
+  }
+
+tabla+="<tr><td id='"+ preguntas[j].id_pregunta+"'class='"+encuestas[maxI].id+"'>"+preguntas[j].titulo+"</td><td class='recuento"+preguntas[j].id_pregunta+"'>"+acum+"</td></tr>";
+}
+tablas.innerHTML+=tabla;
 
 
 });
@@ -86,14 +100,15 @@ function parseaDatos(boton) {
 		var datos = [];
 
 		idActual = posicion;
-		preguntas = document.getElementsByClassName(posicion);
+		encuestas = document.getElementsByClassName(posicion);
+    console.log(encuestas)
 		var i;
-		for(i=0;i<preguntas.length;i++){
+		for(i=0;i<encuestas.length;i++){
 
-			var votos = document.getElementsByClassName("recuento"+preguntas[i].id)[0];
+			var votos = document.getElementsByClassName("recuento"+encuestas[i].id)[0];
 
 
-				datos.push([ preguntas[i].childNodes[0].nodeValue, parseInt(votos.childNodes[0].nodeValue) ]);
+				datos.push([ encuestas[i].childNodes[0].nodeValue, parseInt(votos.childNodes[0].nodeValue) ]);
 
 		}
 
@@ -119,6 +134,7 @@ function drawPie3d(){
 }
 function drawPie(boton) {
 	var datos;
+  console.log(boton)
 	if (boton) {
 		datos = parseaDatos(boton);
 		$("#representacion").show();
