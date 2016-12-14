@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "mongoose": "^4.6.8",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "karma": "~0.12"
   }
 }
