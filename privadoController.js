@@ -3,6 +3,7 @@ const http = require('http'),
 express = require('express'),
 app = express(),
 router = express.Router(),
+//de momento la API interna no es compatible con los ficheros ya que los atributos de la db no coinciden con los de la API externa
 recuentoHost='localhost',
 recuentoPort=3000
 

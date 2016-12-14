@@ -69,6 +69,7 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Deliberaciones':'Deliberations',
 				'Censos':'Census',
 				'Cabina Telegram':'Telegram Poll',
+				'Cierra':'Closes on',
       });
 
       $translateProvider.translations('es', {
@@ -102,6 +103,7 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Deliberaciones':'Deliberaciones',
 				'Censos':'Censos',
 				'Cabina Telegram':'Cabina Telegram',
+				'Cierra':'Cierra el',
       });
 
       $translateProvider.preferredLanguage('es');

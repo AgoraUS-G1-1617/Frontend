@@ -13,9 +13,9 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="encuesta in encuestas">
-				<td>{{encuesta.nombre}}</td>
-
-				<td><a class="btn btn-success" href="resultados/encuestas/ver?encuesta={{encuesta._id}}">{{'Resultados'|translate}}</a></td>
+				<td>{{encuesta.titulo}}</td>
+				<td>{{'Cierra'|translate}}: {{encuesta.fecha_cierre}}</td>
+				<td><a class="btn btn-success" href="resultados/encuestas/ver?encuesta={{encuesta.id_votacion}}">{{'Resultados'|translate}}</a></td>
 			</tr>
 		</tbody>
 	</table>

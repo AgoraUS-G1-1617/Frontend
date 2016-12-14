@@ -1,7 +1,7 @@
 
 <div ng-show="recuento != null">
 
-  <h1 class="text-center">{{recuento.estado}}</h1>
+  <h1 class="text-center">{{recuento.titulo}}</h1>
   <br>
   <div class="col-xs-12 col-sm-6">
 		<table class="table table-responsive table-striped ">
@@ -14,12 +14,12 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="pregunta in recuento.preguntas">
-					<td>{{pregunta.titulo}}
+					<td>{{pregunta.texto_pregunta}}
 
 
 
 						<div class="text-center" ng-show="idActual==pregunta.id_pregunta" ng-repeat="opcion in pregunta.opciones">
-                {{opcion.nombre}}: {{opcion.votos}}
+                {{opcion.texto_opcion}}: {{opcion.votos}}
                 <br>
 						</div>
 
