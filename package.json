@@ -28,9 +28,13 @@
     "mongoose": "^4.6.8",
     "nodemon": "^1.11.0",
     "jasmine-core": "*",
-"karma": "*",
-"karma-cli": "*",
-"karma-jasmine": "*",
-"karma-chrome-launcher": "*"
+    "angular":"*",
+    "angular-route":"*",
+    "angular-mocks":"*",
+    "angular-ui-router":"*",
+    "karma": "*",
+    "karma-cli": "*",
+    "karma-jasmine": "*",
+    "karma-chrome-launcher": "*"
   }
 }
