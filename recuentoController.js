@@ -4,7 +4,7 @@ express = require('express'),
 app = express(),
 router = express.Router(),
 //estamos usando la versión beta para pruebas
-beta=false,
+beta=true,
 recuentoHost=beta?'beta.recuento.agoraus1.egc.duckdns.org':'recuento.agoraus1.egc.duckdns.org', // recuento.agoraus1.egc.duckdns.org
 recuentoPort=443; //443
 
@@ -165,34 +165,36 @@ function encuestasToMapa(encuestas){
     if(cp<1||cp>52)continue;
     prov="";
     console.log(cp);
+    //Ojo al nombre de las provincias, tienen que ser exactamente las ofrecidas por GeoJson, incluidas los acentos
+    //Si alguno no coincide con el nombre que sale en el mapa, las encuestas de esa provincia no se mostrarán
     if(cp==(1)){
-prov="Alava";
+prov="Álava";
 }else if(cp==(2)){
 prov="Albacete";
 }else if(cp==(3)){
 prov="Alicante";
 }else if(cp==(4)){
-prov="Almeria";
+prov="Almería";
 }else if(cp==(5)){
-prov="Avila";
+prov="Ávila";
 }else if(cp==(6)){
 prov="Badajoz";
 }else if(cp==(7)){
-prov="Islas Baleares";
+prov="Baleares";
 }else if(cp==(8)){
 prov="Barcelona";
 }else if(cp==(9)){
 prov="Burgos";
 }else if(cp==(10)){
-prov="Caceres";
+prov="Cáceres";
 }else if(cp==(11)){
-prov="Cadiz";
+prov="Cádiz";
 }else if(cp==(12)){
-prov="Castellon";
+prov="Castellón";
 }else if(cp==(13)){
 prov="Ciudad Real";
 }else if(cp==(14)){
-prov="Cordoba";
+prov="Córdoba";
 }else if(cp==(15)){
 prov="A Coruña";
 }else if(cp==(16)){
@@ -204,17 +206,17 @@ prov="Granada";
 }else if(cp==(19)){
 prov="Guadalajara";
 }else if(cp==(20)){
-prov="Guipuzcua";
+prov="Gipuzkoa";
 }else if(cp==(21)){
 prov="Huelva";
 }else if(cp==(22)){
 prov="Huesca";
 }else if(cp==(23)){
-prov="Jaen";
+prov="Jaén";
 }else if(cp==(24)){
-prov="Leon";
+prov="León";
 }else if(cp==(25)){
-prov="LLeida";
+prov="Lérida";
 }else if(cp==(26)){
 prov="La Rioja";
 }else if(cp==(27)){
@@ -222,7 +224,7 @@ prov="Lugo";
 }else if(cp==(28)){
 prov="Madrid";
 }else if(cp==(29)){
-prov="Malaga";
+prov="Málaga";
 }else if(cp==(30)){
 prov="Murcia";
 }else if(cp==(31)){
