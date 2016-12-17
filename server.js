@@ -25,3 +25,12 @@ app.use(router)
 app.listen(port, () => {
     console.log("Magic happens on port " + port)
 })
+
+// Make node.js not exit on error
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
+
+setTimeout(function () {
+  console.log('This will still run.');
+}, 500);
