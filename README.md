@@ -2,11 +2,11 @@
 Subsistema de visualización y gestión de resultados de Agora US.
 
 ## Miembros
-* Doncel Ramírez, Andrés (@anddonram)
-* Gavilán Ruiz, José (@josgavrui1)
-* Jiménez Ríos, Andrés Miguel (@andjimrio)
-* Menéndez Montes, Eva (@evamenmon)
-* Ramos González, José Renato (@pastahito)
+* Doncel Ramírez, Andrés ([@anddonram](http://github.com/anddonram))
+* Gavilán Ruiz, José ([@josgavrui1](http://github.com/josgavrui1))
+* Jiménez Ríos, Andrés Miguel ([@andjimrio](http://github.com/andjimrio))
+* Menéndez Montes, Eva ([@evamenmon](http://github.com/evamenmon))
+* Ramos González, José Renato ([@pastahito](http://github.com/pastahito))
 
 ## Más
 Para más información, consultar [esta wiki](https://1984.lsi.us.es/wiki-egc/index.php/Frontend_y_visualizaci%C3%B3n_de_resultados_1617).
