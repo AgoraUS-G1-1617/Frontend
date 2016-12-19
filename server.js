@@ -3,13 +3,14 @@ const express = require('express'),
 app = express(),
 router = express.Router(),
 port = 8080,
-recuento = require('./recuentoController.js') //privadoController llama a nuestra base de datos, recuentoController llama a la api de recuento
+recuento = require('./recuentoController.js') //privadoController llama a nuestra base de datos (solo para pruebas),
+//recuentoController llama a la api de recuento verdadera
 
 // Public folders
 app.use(express.static(__dirname + '/views'))
 app.use(express.static(__dirname + '/src'))
 
-app.use('/api', recuento)
+app.use('/api', recuento) //se llama al controlador siempre que se recibe una petición a la API
 
 // App's routes
 router.get('/', function(req, res) {

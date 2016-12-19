@@ -1,3 +1,5 @@
+//Controlador en el que se realizan las llamadas a la base de datos de recuento propia
+//utilizada para pruebas
 // Imports
 const http = require('http'),
 express = require('express'),
@@ -11,17 +13,17 @@ peticion = (options, res) => {
   http.request(options, (response) => {
     var json = ''
 
-    //Data is received as chunks, so we add each chunk to the var json
+    //Los datos son recibidos en forma de chunks, los cuales se van almacenando en la variable json
     response.on('data', (chunk) => {
       json += chunk
     })
 
     response.on('end', function () {
-      res.send(json) //server sends json to client
+      res.send(json) //Enviamos el json al cliente
     })
   }).end()
 }
-//routes definition
+//Definición de rutas, a las cuales se llama para acceder a la API
 
 // Visualizacion de resultados
 router.get('/resultados/encuestas', function(req, res) {
@@ -33,7 +35,7 @@ router.get('/resultados/encuestas', function(req, res) {
     port: recuentoPort,
     path: '/api/resultados/encuestas'
   }
-  if(encuesta!=null){       //if we are requesting a single poll
+  if(encuesta!=null){       //Si solicitamos una sola encuesta
     options = {
       host: recuentoHost,
       port: recuentoPort,
@@ -54,7 +56,7 @@ router.get('/resultados/encuestas/votadas', function(req, res) {
   }
   peticion(options, res)
 })
-
+//Recibimos las preguntas de una encuesta
 router.get('/resultados/preguntas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
   var encuesta=req.query.encuesta
@@ -66,7 +68,7 @@ router.get('/resultados/preguntas', function(req, res) {
   }
   peticion(options, res)
 })
-
+//Recibimos los datos del mapa de la API
 router.get('/resultados/mapa', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
 
