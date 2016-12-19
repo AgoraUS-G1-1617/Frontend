@@ -1,3 +1,5 @@
+//Controlador en el que se realizan las llamadas a la API de recuento para funcionamiento
+//de nuestra propia API y de la parte de cliente
 // Imports
 const http = require('https'),
 express = require('express'),
@@ -6,7 +8,7 @@ router = express.Router(),
 //estamos usando la versión beta para pruebas
 beta=true,
 recuentoHost=beta?'beta.recuento.agoraus1.egc.duckdns.org':'recuento.agoraus1.egc.duckdns.org', // recuento.agoraus1.egc.duckdns.org
-recuentoPort=443; //443
+recuentoPort=443; // Puerto HTTPS utilizado para las llamadas a la API de recuento
 
 
 //petición a usar cuando solo queremos un objeto. normalmente se recibe un json {estado:200,objeto:{}}, asi que solo cogemos el objeto
@@ -14,7 +16,7 @@ peticion = (options, res,objectName) => {
   http.request(options, (response) => {
     var json = ''
 
-    //Data is received as chunks, so we add each chunk to the var json
+    //Los datos son recibidos en forma de chunks, los cuales se van almacenando en la variable json
     response.on('data', (chunk) => {
       json += chunk
     })
@@ -23,7 +25,7 @@ peticion = (options, res,objectName) => {
       console.log(objectName)
       resultados=JSON.parse(json)[objectName]
       console.log(resultados);
-      res.send(resultados) //server sends json to client
+      res.send(resultados) //Enviamos el json al cliente
     })
   }).end()
 }
@@ -32,7 +34,7 @@ peticionMapa = (options, res) => {
   http.request(options, (response) => {
     var json = ''
 
-    //Data is received as chunks, so we add each chunk to the var json
+    //Los datos son recibidos en forma de chunks, los cuales se van almacenando en la variable json
     response.on('data', (chunk) => {
       json += chunk
     })
@@ -42,26 +44,25 @@ peticionMapa = (options, res) => {
       console.log(resultados);
       resultados=encuestasToMapa(resultados);
       console.log(resultados);
-      res.send(resultados) //server sends json to client
+      res.send(resultados) //Enviamos el json al cliente
 
     })
   }).end()
 }
-//routes definition
+//Definición de rutas, a las cuales se llama para acceder a la API
 
 // Visualizacion de resultados
 router.get('/resultados/encuestas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
   var encuesta=req.query.encuesta
-
+//Utilizamos las variables utilizadas arriba, para cambiarlas con una mayor facilidad
   var options = {
     host: recuentoHost,
     port: recuentoPort,
     path: '/api/verVotaciones?detallado=si'
   }
   console.log(encuesta)
-  if(encuesta!=null){       //if we are requesting a single poll to recuento
-    console.log("HOLA")
+  if(encuesta!=null){       //Si solicitamos una sola encuesta
       options = {
       host: recuentoHost,
       port: recuentoPort,
@@ -70,7 +71,7 @@ router.get('/resultados/encuestas', function(req, res) {
     };
   peticion(options, res,'votacion');
   }
-//we are asking for all the polls
+//Si pedimos por todas las votaciones
 else{
   // var json='[{"titulo":"encuesta 1","_id":"3","cp":"30000"},{"titulo":"encuesta 2","_id":"4","cp":"40000"}]'
   //res.send(json)
@@ -120,7 +121,7 @@ json=[{"nombre":"encuesta 1","id":"3","cp":"30000",
   res.json(json)
 //  peticion(options, res)
 })
-
+//Recibimos las preguntas de una encuesta
 router.get('/resultados/preguntas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
   var encuesta=req.query.encuesta
@@ -158,6 +159,8 @@ router.get('/resultados/opciones/:pregunta', function(req, res) {
   }
   peticion(options, res)
 })
+
+//Recoge las encuestas y cuenta el número de encuestas por provincia
 function encuestasToMapa(encuestas){
   mapa=[]
   for (var index in encuestas) {
