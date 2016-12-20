@@ -26,10 +26,10 @@ describe('Inyectar controlador', function() {
       var $scope = {};
       var controller = $controller('visualizacionController', { $scope: $scope });
       var json=[
-                {"id_respuesta":0,"nombre":"Mariano Rajoy","votos":10},
-                {"id_respuesta":1,"nombre":"Pdro Snchz","votos":9},
-                {"id_respuesta":2,"nombre":"Pablo Iglesias","votos":8},
-                {"id_respuesta":3,"nombre":"Albert Rivera","votos":7}
+                {"id_opcion":0,"texto_opcion":"Mariano Rajoy","votos":10},
+                {"id_opcion":1,"texto_opcion":"Pdro Snchz","votos":9},
+                {"id_opcion":2,"texto_opcion":"Pablo Iglesias","votos":8},
+                {"id_opcion":3,"texto_opcion":"Albert Rivera","votos":7}
               ];
         var boton=document.createElement("input")
         boton.id_pregunta=0
