@@ -71,6 +71,8 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Censos':'Census',
 				'Cabina Telegram':'Telegram Poll',
 				'Cierra':'Closes on',
+				'VotosTotales': 'Total votes',
+				'DesgloseVotos':'Number of votes per answered question',
       });
 
       $translateProvider.translations('es', {
@@ -106,6 +108,8 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Censos':'Censos',
 				'Cabina Telegram':'Cabina Telegram',
 				'Cierra':'Cierra el',
+				'VotosTotales':'Votos totales',
+				'DesgloseVotos':'Número de votos por cada pregunta de una encuesta',
       });
 
       $translateProvider.preferredLanguage('es');

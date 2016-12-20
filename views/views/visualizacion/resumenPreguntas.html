@@ -4,146 +4,45 @@
 <br>
 <div class="panel panel-primary">
       <div class="panel-heading"><b>{{'EncuestaMasVotada'|translate}}</b></div>
-
-      <div class="panel-body" ng-repeat="encuesta in enMasVotadas">
-	{{encuesta.nombre}}
-	</div>
-    </div>
+</div>
 
 
 <div class="col-xs-6">
-
-
-
-
 
 <table class="table table-responsive table-striped">
 <thead>
 	<tr><th></th><th><th></th></tr>
 	</thead>
-	<tbody id="encuestas">
+	<tbody id="encuestas"  ng-repeat="encuesta in encuestas" ng-show="maxAcum==encuesta.sumaTotal">
+
+        <tr  style="background-color: #4CAF50;color: white;">
+
+          <th>{{'Nombre'|translate}}: {{encuesta.titulo}}</th>
+          <th>
+            <button id="{{encuesta.id_votacion}}" ng-click='drawPie(encuesta)' class='btn btn-success' >{{'VerGrafica'|translate}}</button>
+          </th>
+          <tr>
+            <th>{{'Preguntas'|translate}}</th>
+            <th>{{'VotosTotales'|translate}}: {{encuesta.sumaTotal}}</th>
+          </tr>
+          <tr ng-repeat="pregunta in encuesta.preguntas">
+            <td id={{pregunta.id_pregunta}} >{{pregunta.texto_pregunta}}</td>
+            <td class={{pregunta.id_pregunta}}>{{pregunta.sumaVotos}}</td>
+          </tr>
+        </tr>
 	</tbody>
 </table>
 </div>
 
 <div  id="representacion" class="col-xs-6"  style="display:none;">
 		<ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" onclick="drawPie()">{{'Circular'|translate}}</a></li>
-      <li><a data-toggle="tab" onclick="drawColumn()">{{'Columnas'|translate}}</a></li>
-      <li><a data-toggle="tab" onclick="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
-      <li><a data-toggle="tab" onclick="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
+      <li class="active"><a data-toggle="tab" ng-click="drawPie()">{{'Circular'|translate}}</a></li>
+      <li><a data-toggle="tab" ng-click="drawColumn()">{{'Columnas'|translate}}</a></li>
+      <li><a data-toggle="tab" ng-click="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+      <li><a data-toggle="tab" ng-click="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
 		</ul>
 
 
 <div id="container"></div>
 </div>
 </div>
-
-<script type="text/javascript">
-$.getJSON('/api/resultados/encuestas/votadas', function (encuestas) {
-	var i;
-	var tablas=document.getElementById("encuestas");
-
-  var maxAcum=0,maxI=0;
-	for (i=0;i<encuestas.length;i++){
-
-		var preguntas=encuestas[i].preguntas;
-		var j;
-  var acum=0;
-		for(j=0;j<preguntas.length;j++){
-			var opciones=preguntas[j].opciones;
-			var w;
-			for (w=0;w<opciones.length;w++){
-				acum+=opciones[w].votos;
-
-			}
-
-		}
-    if (acum>maxAcum){
-    maxAcum=acum;
-    maxI=i;
-    }
-
-	}
-
-  var tabla="<tr style=\"background-color: #4CAF50;color: white;\"><th>Encuesta: "+encuestas[maxI].nombre+"</th><th><button id='"+encuestas[maxI].id+"' onclick='drawPie(this)'"
-  +"class='btn btn-success' >Ver grafica</button></th></tr>";
-  tabla+="<tr><th>Pregunta</th><th>Votos totales: "+maxAcum+"</th></tr>";
-for (j=0;j<encuestas[maxI].preguntas.length;j++){
-  var opciones=encuestas[maxI].preguntas[j].opciones;
-  var w;
-  var acum=0;
-
-  for (w=0;w<opciones.length;w++){
-    acum+=opciones[w].votos;
-
-  }
-
-tabla+="<tr><td id='"+ preguntas[j].id_pregunta+"'class='"+encuestas[maxI].id+"'>"+preguntas[j].titulo+"</td><td class='recuento"+preguntas[j].id_pregunta+"'>"+acum+"</td></tr>";
-}
-tablas.innerHTML+=tabla;
-
-
-});
-
-
-var idActual = -1;
-var datosAct;
-
-function parseaDatos(boton) {
-	var posicion = boton.id;
-
-	if (idActual != posicion) {
-
-
-		var datos = [];
-
-		idActual = posicion;
-		encuestas = document.getElementsByClassName(posicion);
-    console.log(encuestas)
-		var i;
-		for(i=0;i<encuestas.length;i++){
-
-			var votos = document.getElementsByClassName("recuento"+encuestas[i].id)[0];
-
-
-				datos.push([ encuestas[i].childNodes[0].nodeValue, parseInt(votos.childNodes[0].nodeValue) ]);
-
-		}
-
-
-
-		datosAct = datos;
-		$(".active").attr('class', '');;
-
-	}
-
-	return datosAct;
-}
-
-function drawColumn() {
-
-	column(datosAct);
-}
-function drawSemiCircle(){
-	semicircle(datosAct);
-}
-function drawPie3d(){
-	pie3d(datosAct);
-}
-function drawPie(boton) {
-	var datos;
-  console.log(boton)
-	if (boton) {
-		datos = parseaDatos(boton);
-		$("#representacion").show();
-		//$("#representacion").collapse("show");
-	} else {
-		datos = datosAct;
-	}
-
-	pie(datos,"Numero de votos por cada pregunta de una encuesta");
-
-}
-
-</script>

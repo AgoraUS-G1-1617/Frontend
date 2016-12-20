@@ -77,6 +77,7 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 			$scope.idActual = -1;
 			$scope.datosAct;
 		  $scope.opciones;
+			//Tipos de gráficas
 			$scope.drawColumn=function drawColumn() {
 				column($scope.datosAct);
 			}
@@ -86,6 +87,9 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 			$scope.drawPie3d=function drawPie3d(){
 				pie3d($scope.datosAct);
 			}
+			/*
+			*funcion que pasa los datos a un formato lista([texto_opcion,votos]) para que se pueda representar en gráficas
+			*/
 			$scope.parseaDatos=function parseaDatos(boton, opciones) {
 				var posicion = boton.id_pregunta;
 				console.log(posicion)
@@ -100,7 +104,7 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 
 					var i;
 					for (i = 0; i < opciones.length; i++) {
-						datos.push([ opciones[i].nombre, parseInt(opciones[i].votos) ]);
+						datos.push([ opciones[i].texto_opcion, parseInt(opciones[i].votos) ]);
 
 					}
 
@@ -121,12 +125,10 @@ agoraUSControllers.controller('visualizacionController', ['$http','$scope', '$ro
 		      datos = $scope.parseaDatos(pregunta,$scope.opciones);
 		      $("#representacion").show();
 		      //$("#representacion").collapse("show");
-		    pie(datos);
 		    } else {
 		        datos = $scope.datosAct;
-		        pie(datos);
 		    }
-
+	    pie(datos);
 
 			}
 		} ]);
@@ -161,14 +163,104 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 					$scope.encuestas = original;
 					showHeaderAndFooter($scope, "Encuestas");
 					$scope.dataHasLoaded=true;
-				} catch (err) {
 
+					var i;
+				  var maxAcum=0,maxI=0;
+					for (i=0;i<	$scope.encuestas.length;i++){
+
+						var preguntas=	$scope.encuestas[i].preguntas;
+						var j;
+				    var acum=0;
+						for(j=0;j<preguntas.length;j++){
+							var opciones=preguntas[j].opciones;
+							var w;
+							var semiacum=0;
+							for (w=0;w<opciones.length;w++){
+								semiacum+=opciones[w].votos;
+							}
+							acum+=semiacum;
+							preguntas[j]["sumaVotos"]=semiacum;
+						}
+				    if (acum>maxAcum){
+				    maxAcum=acum;
+				    maxI=i;
+				    }
+					$scope.	encuestas[i]["sumaTotal"]=acum;
+					console.log(acum);
+					}
+
+				for (j=0;j<	$scope.encuestas[maxI].preguntas.length;j++){
+				  var opciones=	$scope.encuestas[maxI].preguntas[j].opciones;
+				  var w;
+				  var acum=0;
+
+				  for (w=0;w<opciones.length;w++){
+				    acum+=opciones[w].votos;
+				  }
+
+		}
+		$scope.maxAcum=maxAcum;
+				console.log(maxAcum);
+				//hay que reasignarlas encuestas para que se actualicen respecto de la carga de datos (ng-show sumaTotal==maxAcum)
+				$scope.encuestas=$scope.encuestas;
+				} catch (err) {
 					$window.location.href = "/error";
 				}
 			}, function errorCallback(response) {
 				alert('Error obteniendo el objeto JSON');
 			});
 
+
+		$scope. idActual = -1;
+		$scope. datosAct;
+
+		$scope.parseaDatos=		function parseaDatos(boton, preguntas) {
+				var posicion = boton.id_votacion;
+
+				if ($scope.idActual != posicion) {
+					var datos = [];
+					$scope.idActual = posicion;
+			    console.log(encuestas)
+					var i;
+					for(i=0;i<preguntas.length;i++){
+							datos.push([ preguntas[i].texto_pregunta, parseInt(preguntas[i].sumaVotos) ]);
+
+					}
+
+					console.log(datos);
+
+					$scope.datosAct = datos;
+					$(".active").attr('class', '');;
+
+				}
+
+				return $scope.datosAct;
+			}
+
+			$scope.drawColumn=function drawColumn() {
+				column($scope.datosAct);
+			}
+			$scope.drawSemiCircle=function drawSemiCircle(){
+				semicircle($scope.datosAct);
+			}
+			$scope.drawPie3d=function drawPie3d(){
+				pie3d($scope.datosAct);
+			}
+		$scope.drawPie=	function drawPie(encuesta) {
+				var datos;
+			  console.log(encuesta)
+				if (encuesta) {
+					console.log("parseando")
+					datos = $scope.parseaDatos(encuesta,encuesta.preguntas);
+					$("#representacion").show();
+					//$("#representacion").collapse("show");
+				} else {
+					datos = $scope.datosAct;
+				}
+
+				pie(datos);
+
+			}
 		} ]);
 
 
