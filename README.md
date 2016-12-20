@@ -19,5 +19,5 @@ El código está bajo [The MIT License](https://github.com/AgoraUS-G1-1617/Front
 
 Se puede acceder a la parte de visualización siguiendo los siguientes enlaces:
 
--Estable: https://frontend.agoraus1.egc.duckdns.org/
--Beta (desarrollo): https://beta.frontend.agoraus1.egc.duckdns.org/
+- Estable: https://frontend.agoraus1.egc.duckdns.org/
+- Beta (desarrollo): https://beta.frontend.agoraus1.egc.duckdns.org/
