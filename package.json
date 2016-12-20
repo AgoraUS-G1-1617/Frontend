@@ -1,0 +1,40 @@
+{
+  "name": "visualizacion",
+  "version": "1.0.0",
+  "description": "Módulo de visualización de resultados de AgoraUS1617",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgoraUS-G1-1617/Frontend.git"
+  },
+  "keywords": [
+    "agoraus",
+    "sevilla"
+  ],
+  "author": "Group19 AgoraUS1617",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AgoraUS-G1-1617/Frontend/issues"
+  },
+  "homepage": "https://github.com/AgoraUS-G1-1617/Frontend#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "mongoose": "^4.6.8",
+    "nodemon": "^1.11.0",
+    "jasmine-core": "*",
+    "angular":"*",
+    "angular-route":"*",
+    "angular-mocks":"*",
+    "angular-ui-router":"*",
+    "karma": "*",
+    "karma-cli": "*",
+    "karma-jasmine": "*",
+    "karma-chrome-launcher": "*"
+  }
+}

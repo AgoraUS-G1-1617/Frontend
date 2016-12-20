@@ -1,0 +1,48 @@
+
+
+<div class="container">
+<br>
+<div class="panel panel-primary">
+      <div class="panel-heading"><b>{{'EncuestaMasVotada'|translate}}</b></div>
+</div>
+
+
+<div class="col-xs-6">
+
+<table class="table table-responsive table-striped">
+<thead>
+	<tr><th></th><th><th></th></tr>
+	</thead>
+	<tbody id="encuestas"  ng-repeat="encuesta in encuestas" ng-show="maxAcum==encuesta.sumaTotal">
+
+        <tr  style="background-color: #4CAF50;color: white;">
+
+          <th>{{'Nombre'|translate}}: {{encuesta.titulo}}</th>
+          <th>
+            <button id="{{encuesta.id_votacion}}" ng-click='drawPie(encuesta)' class='btn btn-success' >{{'VerGrafica'|translate}}</button>
+          </th>
+          <tr>
+            <th>{{'Preguntas'|translate}}</th>
+            <th>{{'VotosTotales'|translate}}: {{encuesta.sumaTotal}}</th>
+          </tr>
+          <tr ng-repeat="pregunta in encuesta.preguntas">
+            <td id={{pregunta.id_pregunta}} >{{pregunta.texto_pregunta}}</td>
+            <td class={{pregunta.id_pregunta}}>{{pregunta.sumaVotos}}</td>
+          </tr>
+        </tr>
+	</tbody>
+</table>
+</div>
+
+<div  id="representacion" class="col-xs-6"  style="display:none;">
+		<ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" ng-click="drawPie()">{{'Circular'|translate}}</a></li>
+      <li><a data-toggle="tab" ng-click="drawColumn()">{{'Columnas'|translate}}</a></li>
+      <li><a data-toggle="tab" ng-click="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+      <li><a data-toggle="tab" ng-click="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
+		</ul>
+
+
+<div id="container"></div>
+</div>
+</div>

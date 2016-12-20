@@ -1,0 +1,27 @@
+ <hr />
+<div id="resultados" class="container-fluid text-center encuestas">
+<b>Copyright &copy; {{date | date:'yyyy'}} AgoraUS</b>
+<div>
+  <button class="button btn-sm btn-primary" ng-click="changeLanguage('es')" translate="BUTTON_LANG_ES"></button>
+  <button  class="button btn-sm btn-primary" ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></button>
+</div>
+</div>
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'es'}
+</script>
+
+<script type="text/javascript">
+   SocialShareKit.init({
+      selector: '.ssk-group .ssk',
+      url: 'https://github.com/AgoraUS-G1-1617/', // this is url of my home page
+      text: 'Por unas encuestas más limpias, más seguras... más (añada adjetivo en plural)' // text to share
+   });
+</script>
+
+<!-- Left & centered positioning -->
+<div class="ssk-sticky ssk-left ssk-center ssk-lg ssk-group">
+    <a href="" class="ssk ssk-facebook" ></a>
+    <a href="" class="ssk ssk-twitter"></a>
+    <a href="" class="ssk ssk-google-plus"></a>
+    <a href="" class="ssk ssk-email"></a>
+</div>

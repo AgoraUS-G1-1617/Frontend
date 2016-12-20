@@ -1,0 +1,51 @@
+
+<div class="container" ng-show="recuento != null">
+
+  <h1 class="text-center">{{recuento.titulo}}</h1>
+  <br>
+  <div class="col-xs-12 col-sm-6">
+		<table class="table table-responsive table-striped ">
+			<thead>
+				<tr>
+					<th>{{'Preguntas'|translate}}</th>
+					<th></th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pregunta in recuento.preguntas">
+					<td>{{pregunta.texto_pregunta}}
+
+
+
+						<div class="text-center" ng-show="idActual==pregunta.id_pregunta" ng-repeat="opcion in pregunta.opciones">
+                {{opcion.texto_opcion}}: {{opcion.votos}}
+                <br>
+						</div>
+
+					</td>
+
+
+
+					<td><button ng-click="drawPie(pregunta)"  id="{{pregunta.id_pregunta}}"
+							class="btn btn-success" >{{'VerGrafica'|translate}}</button></td>
+
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div  id="representacion" class="col-xs-12 col-sm-6"  style="display:none;">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab"  ng-click="drawPie()">{{'Circular'|translate}}</a></li>
+			<li><a data-toggle="tab" ng-click="drawColumn()">{{'Columnas'|translate}}</a></li>
+			<li><a data-toggle="tab" ng-click="drawSemiCircle()">{{'Semicirculo'|translate}}</a></li>
+			<li><a data-toggle="tab" ng-click="drawPie3d()">{{'Circulo3D'|translate}}</a></li>
+		</ul>
+
+
+
+		<div id="container"></div>
+	</div>
+</div>
