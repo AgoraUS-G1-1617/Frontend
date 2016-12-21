@@ -1,6 +1,6 @@
 // var auth = require("../authModule");
 // var modif = require("../modificationModule");
-
+//Aquí van los tests con jasmine
 describe('Inyectar controlador', function() {
   beforeEach(angular.mock.module('AgoraUSControllers','ngRoute'));
 
