@@ -36,7 +36,7 @@ describe('Inyectar controlador', function() {
         expect(boton.id_pregunta).toBe(0)
         expect($scope.parseaDatos(boton,json)).toEqual([ ["Mariano Rajoy",10],
                   ["Pdro Snchz",9], ["Pablo Iglesias",8], ["Albert Rivera",7]]);
-      expect($scope.title).toEqual("Encuestas");
+      expect($scope.title).toEqual("Titulo");
     });
   });
 });
