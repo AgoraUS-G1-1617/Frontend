@@ -15,6 +15,10 @@ function showHeaderAndFooter($scope, title) {
 		name : "header.html",
 		url : "views/main/header.html"
 	};
+	$scope.social = {
+		name : "social.html",
+		url : "views/main/social.html"
+	};
 }
 // Header y Footer
 agoraUSControllers.controller('MainController', [ '$scope', '$route','$translate',
