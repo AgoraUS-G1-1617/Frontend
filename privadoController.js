@@ -19,6 +19,8 @@ peticion = (options, res) => {
     })
 
     response.on('end', function () {
+console.log(options.path);
+      console.log(json);
       res.send(json) //Enviamos el json al cliente
     })
   }).end()

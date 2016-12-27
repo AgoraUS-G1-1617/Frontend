@@ -95,13 +95,13 @@ json=[{"titulo":"encuesta 1","id_votacion":"3","cp":"30000",
             "preguntas":
             [{"id_pregunta":0,"texto_pregunta":"¿A quién va a votar en las próximas elecciones?",
                   "opciones":[
-                              {"id_opcion":0,"texto_pregunta":"Mariano Rajoy","votos":10},
-                              {"id_opcion":1,"texto_pregunta":"Pdro Snchz","votos":9},
-                              {"id_opcion":2,"texto_pregunta":"Pablo Iglesias","votos":8},
-                              {"id_opcion":3,"texto_pregunta":"Albert Rivera","votos":7}]},
+                              {"id_opcion":0,"texto_opcion":"Mariano Rajoy","votos":10},
+                              {"id_opcion":1,"texto_opcion":"Pdro Snchz","votos":9},
+                              {"id_opcion":2,"texto_opcion":"Pablo Iglesias","votos":8},
+                              {"id_opcion":3,"texto_opcion":"Albert Rivera","votos":7}]},
               {"id_pregunta":1,"texto_pregunta":"¿Eres mayor de edad?",
-                  "opciones":[{"id_opcion":4,"texto_pregunta":"Sí","votos":40},
-                              {"id_opcion":5,"texto_pregunta":"No","votos":30}]}
+                  "opciones":[{"id_opcion":4,"texto_opcion":"Sí","votos":40},
+                              {"id_opcion":5,"texto_opcion":"No","votos":30}]}
             ]},
       {"titulo":"encuesta 2","id_votacion":"4","cp":"40000",
             "preguntas":
