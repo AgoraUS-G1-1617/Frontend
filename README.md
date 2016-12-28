@@ -18,7 +18,7 @@ El código está bajo [The MIT License](https://github.com/AgoraUS-G1-1617/Front
 ## Instalación
 Para instalar todo lo necesario para ejecutar el proyecto se necesitará de la instalación de varios componentes. Se dispondrá de dos formas para ello: utilizar la máquina virtual preparada o instalar los componentes por separado.
 
-* Instalar la máquina virtual: Se puede encontrar aquí ( enlace no disponible actualmente )
+* Instalar la máquina virtual: Se puede encontrar aquí ( https://mega.nz/#!cQdlEJyZ!ltSyr4sjcxFYLqC2Y0QpmVr4xlqOkZdZ7qOu_N2p4Pk )
 * Instalar los componentes manualmente: Los componentes necesarios son los siguientes:
   - Nodejs: Se puede conseguir en la página oficial de Nodejs. La versión utilizada por el grupo del curso 16/17 es la 6.9.2 LTS ( https://nodejs.org/dist/v6.9.2/node-v6.9.2-x64.msi )
   - npm: Se utiliza para instalar componentes como express de forma sencilla.
