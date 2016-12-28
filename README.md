@@ -15,9 +15,28 @@ El sistema al cual se integra este modúlo está disponible en [este repositorio
 ## Licencia
 El código está bajo [The MIT License](https://github.com/AgoraUS-G1-1617/Frontend/blob/dev/LICENSE).
 
+## Instalación
+Para instalar todo lo necesario para ejecutar el proyecto se necesitará de la instalación de varios componentes. Se dispondrá de dos formas para ello: utilizar la máquina virtual preparada o instalar los componentes por separado.
+
+* Instalar la máquina virtual: Se puede encontrar aquí ( enlace no disponible actualmente )
+* Instalar los componentes manualmente: Los componentes necesarios son los siguientes:
+  - Nodejs: Se puede conseguir en la página oficial de Nodejs. La versión utilizada por el grupo del curso 16/17 es la 6.9.2 LTS ( https://nodejs.org/dist/v6.9.2/node-v6.9.2-x64.msi )
+  - npm: Se utiliza para instalar componentes como express de forma sencilla.
+  - Un editor de código o IDE (nosotros estuvimos utilizando [Atom](https://atom.io/), pero se puede utilizar cualquier otro).
+
+Una vez descargamos todos los componentes, realizamos los siguientes pasos en la consola:
+- $ git clone https://github.com/AgoraUS-G1-1617/Frontend.git
+- $ cd frontend
+- $ git checkout -b dev origin/dev
+Con esto conseguimos descargar tanto la rama master como la rama de desarrollo (dev).
+Para instalar los componentes necesarios utilizamos la instrucción "npm install".
+Por último, para ejecutar el servidor basta con ejecutar la instrucción "npm start".
+
 ## Web y API
 
 Se puede acceder a la parte de visualización siguiendo los siguientes enlaces:
 
 - Estable: https://frontend.agoraus1.egc.duckdns.org/
 - Beta (desarrollo): https://beta.frontend.agoraus1.egc.duckdns.org/
+
+Nuestra aplicación utiliza la información suministrada por [Recuento y modificación](https://github.com/AgoraUS-G1-1617/Recuento-y-modificacion). Sin embargo, también disponemos de una API simulada destinada a pruebas propias, la cual se almacena en la carpeta recuento-api.
