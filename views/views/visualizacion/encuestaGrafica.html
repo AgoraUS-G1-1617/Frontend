@@ -1,7 +1,9 @@
+<h1 class="text-center" ng-if="(recuento.fecha_cierre|date:'yyyy-MM-dd hh:mm:ss')>(date|date:'yyyy-MM-dd hh:mm:ss')">
+  {{'NoTerminada'|translate}}
+</h1>
+<div class="container" ng-show="recuento != null" ng-if="(recuento.fecha_cierre|date:'yyyy-MM-dd hh:mm:ss')<(date|date:'yyyy-MM-dd hh:mm:ss')">
 
-<div class="container" ng-show="recuento != null">
-
-  <h1 class="text-center">{{recuento.titulo}}</h1>
+  <h1 class="text-center" >{{recuento.titulo}}</h1>
   <br>
   <div class="col-xs-12 col-sm-6">
 		<table class="table table-responsive table-striped ">

@@ -73,6 +73,7 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Cierra':'Closes on',
 				'VotosTotales': 'Total votes',
 				'DesgloseVotos':'Number of votes per answered question',
+				'NoTerminada':'This survey has not finished yet',
       });
 
       $translateProvider.translations('es', {
@@ -110,6 +111,7 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'Cierra':'Cierra el',
 				'VotosTotales':'Votos totales',
 				'DesgloseVotos':'Número de votos por cada pregunta de una encuesta',
+				'NoTerminada':'Esta encuesta aún no ha terminado',
       });
 
       $translateProvider.preferredLanguage('es');

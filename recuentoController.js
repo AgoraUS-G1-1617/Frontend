@@ -6,7 +6,7 @@ express = require('express'),
 app = express(),
 router = express.Router(),
 //estamos usando la versión beta para pruebas
-beta=true,
+beta=false,
 recuentoHost=beta?'beta.recuento.agoraus1.egc.duckdns.org':'recuento.agoraus1.egc.duckdns.org', // recuento.agoraus1.egc.duckdns.org
 recuentoPort=443; // Puerto HTTPS utilizado para las llamadas a la API de recuento
 
