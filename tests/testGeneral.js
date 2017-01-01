@@ -38,5 +38,25 @@ describe('Inyectar controlador', function() {
                   ["Pdro Snchz",9], ["Pablo Iglesias",8], ["Albert Rivera",7]]);
       expect($scope.title).toEqual("Encuestas");
     });
+
+    it('Test estadisticas', function() {
+      var $scope = {};
+      var controller = $controller('preguntasController', { $scope: $scope });
+      var json=[
+                {"texto_pregunta":"Mariano Rajoy","sumaVotos":10},
+                {"texto_pregunta":"Pdro Snchz","sumaVotos":7},
+                {"texto_pregunta":"Albert Rivera","sumaVotos":5},
+                {"texto_pregunta":"Pablo Iglesias","sumaVotos":8}
+              ];
+        var boton=document.createElement("input")
+        boton.id_pregunta=0
+        expect(boton.id_pregunta).toBe(0)
+        $scope.parseaDatos(boton,json)
+        expect($scope.datosAct).toEqual([ ["Mariano Rajoy",10],
+                  ["Pdro Snchz",7], ["Albert Rivera",5], ["Pablo Iglesias",8]]);
+      expect($scope.title).toEqual("Estadísticas");
+    });
+
   });
+
 });

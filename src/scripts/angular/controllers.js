@@ -156,7 +156,7 @@ agoraUSControllers.controller('mapaController', ['$http','$scope', '$routeParams
 agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeParams','$window',
 		function($http,$scope, $routeParams,$window) {
 		//$scope.dataHasLoaded=false;
-		showHeaderAndFooter($scope, "Inicio");
+		showHeaderAndFooter($scope, "Estadísticas");
 
 
 			$scope.params=$routeParams;
@@ -189,7 +189,7 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 				    maxAcum=acum;
 				    maxI=i;
 				    }
-					$scope.	encuestas[i]["sumaTotal"]=acum;
+					$scope.encuestas[i]["sumaTotal"]=acum;
 					console.log(acum);
 					}
 
@@ -218,13 +218,13 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 		$scope. idActual = -1;
 		$scope. datosAct;
 
-		$scope.parseaDatos=		function parseaDatos(boton, preguntas) {
+		$scope.parseaDatos=	function parseaDatos(boton, preguntas) {
 				var posicion = boton.id_votacion;
 
 				if ($scope.idActual != posicion) {
 					var datos = [];
 					$scope.idActual = posicion;
-			    console.log(encuestas)
+			    console.log(preguntas)
 					var i;
 					for(i=0;i<preguntas.length;i++){
 							datos.push([ preguntas[i].texto_pregunta, parseInt(preguntas[i].sumaVotos) ]);
@@ -234,7 +234,7 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 					console.log(datos);
 
 					$scope.datosAct = datos;
-					$(".active").attr('class', '');;
+					//$(".active").attr('class', '');;
 
 				}
 
@@ -269,7 +269,7 @@ agoraUSControllers.controller('preguntasController', ['$http','$scope', '$routeP
 
 
 
-// Visualizaci�n de resultados
+// Visualización de resultados
 agoraUSControllers.controller('VisualizacionRestController', [
 		'$scope',
 		'$routeParams',
