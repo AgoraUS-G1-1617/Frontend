@@ -1,13 +1,14 @@
 const mongoose     = require('mongoose')
 
 module.exports.Encuesta = mongoose.model('Encuesta', {
-    nombre: String,
+  id_votacion: Number,
+    titulo: String,
         cp: Number
 })
 
 module.exports.Pregunta = mongoose.model('Pregunta', {
-
-    titulo: String,
+    id_pregunta: Number,
+    texto_pregunta: String,
     encuesta: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Encuesta'
@@ -15,8 +16,9 @@ module.exports.Pregunta = mongoose.model('Pregunta', {
 })
 
 module.exports.Opcion = mongoose.model('Opcion', {
+    id_opcion: Number,
     votos: Number,
-    nombre: String,
+    texto_opcion: String,
     pregunta: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pregunta'

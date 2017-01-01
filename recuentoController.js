@@ -25,9 +25,51 @@ peticion = (options, res,objectName) => {
       console.log(objectName)
       resultados=JSON.parse(json)[objectName]
       console.log(resultados);
-      res.send(resultados) //Enviamos el json al cliente
+    if(objectName=="votacion"){
+        options.path='/api/recontarVotacion?idVotacion='+resultados.id_votacion
+        combinar(options, res,'preguntas',resultados);
+    }else{
+      res.send(resultados);
+    }//Enviamos el json al cliente
     })
   }).end()
+}
+combinar=(options, res,objectName,votacion)=>{
+  http.request(options, (response) => {
+    var json = ''
+
+    //Los datos son recibidos en forma de chunks, los cuales se van almacenando en la variable json
+    response.on('data', (chunk) => {
+      json += chunk
+    })
+
+    response.on('end', function () {
+      console.log(objectName)
+      aux=JSON.parse(json)
+      if(aux["estado"]==200){
+      resultados=aux[objectName]
+      console.log(resultados);
+      //hay que comprobar manualmente todas las preguntas y opciones y devolverlas
+      for (var i=0;i<votacion["preguntas"].length;i++){
+        var preg=votacion["preguntas"][i];
+        for (var j=0;j<resultados.length;j++){
+          if (preg.id_pregunta==resultados[j].id_pregunta){
+            for(var k=0;k<preg["opciones"].length;k++){
+              for(var l=0;l<resultados[j]["opciones"].length;l++){
+                if(preg["opciones"][k].id_opcion==resultados[j]["opciones"][l].id_opcion){
+                  //aquí combinamos los json añadiendo el recuento de uno a otro diccionario
+                  preg["opciones"][k]["votos"]=resultados[j]["opciones"][l].votos
+                }
+              }
+            }
+          }
+        }
+      }
+}
+      res.send(votacion);
+    })
+  }).end()
+
 }
 //Petición personalizada para el mapa
 peticionMapa = (options, res) => {
@@ -70,6 +112,7 @@ router.get('/resultados/encuestas', function(req, res) {
       path: '/api/verVotacion?detallado=si&idVotacion='+encuesta
     };
   peticion(options, res,'votacion');
+
   }
 //Si pedimos por todas las votaciones
 else{
@@ -80,43 +123,104 @@ else{
 }
  console.log(options.path);
 })
+peticionCombinado = (options, res,objectName) => {
+  http.request(options, (response) => {
+    var json = ''
 
+    //Los datos son recibidos en forma de chunks, los cuales se van almacenando en la variable json
+    response.on('data', (chunk) => {
+      json += chunk
+    })
+
+    response.on('end', function () {
+      console.log(objectName)
+      resultados=JSON.parse(json)[objectName]
+      console.log(resultados);
+      if (resultados.length>0){
+      options.path='/api/recontarVotacion?idVotacion='+resultados[0].id_votacion
+      combinarEstadisticas(options, res,'preguntas',resultados,0);
+    }else{
+      res.send([]);
+    }
+
+    })
+  }).end()
+}
+combinarEstadisticas=(options, res,objectName,votaciones,indice)=>{
+  http.request(options, (response) => {
+    var json = ''
+
+    //Los datos son recibidos en forma de chunks, los cuales se van almacenando en la variable json
+    response.on('data', (chunk) => {
+      json += chunk
+    })
+
+    response.on('end', function () {
+      console.log(objectName)
+      aux=JSON.parse(json)
+      console.log(aux["estado"])
+      if(aux["estado"]==200){
+        resultados=aux[objectName]
+        console.log(resultados);
+        votaciones[indice]["preguntas"]=resultados;
+      }else{
+          votaciones[indice]["preguntas"]==[]
+      }
+      //si es la última, cogemos las votaciones válidas(codigo 200) y las enviamos
+      if(indice+1==votaciones.length){
+        enviar=[]
+        for (var i=0;i<votaciones.length;i++){
+          if (votaciones[i]["preguntas"]!=null){
+            enviar.push(votaciones[i])
+          }
+        }
+        res.send(enviar)
+      }else{
+    //en caso contrario, pedimos la siguiente votacion
+        options.path='/api/recontarVotacion?idVotacion='+resultados[indice+1].id_votacion
+      combinarEstadisticas(options,res,objectName,votaciones,indice+1);
+      }
+
+      })
+  }).end()
+}
 // Visualizacion de estadísticas
 router.get('/resultados/encuestas/votadas', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
 
-  const options = {
+  var options = {
     host: recuentoHost,
     port: recuentoPort,
-    path: '/api/resultados/encuestas/votadas'
+    path: '/api/verVotaciones'
   }
+  peticionCombinado(options, res,'votaciones');
   //full json
-json=[{"titulo":"encuesta 1","id_votacion":"3","cp":"30000",
-            "preguntas":
-            [{"id_pregunta":0,"texto_pregunta":"¿A quién va a votar en las próximas elecciones?",
-                  "opciones":[
-                              {"id_opcion":0,"texto_pregunta":"Mariano Rajoy","votos":10},
-                              {"id_opcion":1,"texto_pregunta":"Pdro Snchz","votos":9},
-                              {"id_opcion":2,"texto_pregunta":"Pablo Iglesias","votos":8},
-                              {"id_opcion":3,"texto_pregunta":"Albert Rivera","votos":7}]},
-              {"id_pregunta":1,"texto_pregunta":"¿Eres mayor de edad?",
-                  "opciones":[{"id_opcion":4,"texto_pregunta":"Sí","votos":40},
-                              {"id_opcion":5,"texto_pregunta":"No","votos":30}]}
-            ]},
-      {"titulo":"encuesta 2","id_votacion":"4","cp":"40000",
-            "preguntas":
-            [{"id_pregunta":0,"texto_pregunta":"¿A quién va a votar en las próximas elecciones?",
-                  "opciones":[
-                              {"id_opcion":0,"texto_opcion":"Mariano Rajoy","votos":10},
-                              {"id_opcion":1,"texto_opcion":"Pdro Snchz","votos":9},
-                              {"id_opcion":2,"texto_opcion":"Pablo Iglesias","votos":8},
-                              {"id_opcion":3,"texto_opcion":"Albert Rivera","votos":7}]},
-              {"id_pregunta":1,"texto_pregunta":"¿Eres mayor de edad?",
-                  "opciones":[{"id_opcion":4,"texto_opcion":"Sí","votos":30},
-                              {"id_opcion":5,"texto_opcion":"No","votos":10}]}
-            ]}]
+// json=[{"titulo":"encuesta 1","id_votacion":"3","cp":"30000",
+//             "preguntas":
+//             [{"id_pregunta":0,"texto_pregunta":"¿A quién va a votar en las próximas elecciones?",
+//                   "opciones":[
+//                               {"id_opcion":0,"texto_opcion":"Mariano Rajoy","votos":10},
+//                               {"id_opcion":1,"texto_opcion":"Pdro Snchz","votos":9},
+//                               {"id_opcion":2,"texto_opcion":"Pablo Iglesias","votos":8},
+//                               {"id_opcion":3,"texto_opcion":"Albert Rivera","votos":7}]},
+//               {"id_pregunta":1,"texto_pregunta":"¿Eres mayor de edad?",
+//                   "opciones":[{"id_opcion":4,"texto_opcion":"Sí","votos":40},
+//                               {"id_opcion":5,"texto_opcion":"No","votos":30}]}
+//             ]},
+//       {"titulo":"encuesta 2","id_votacion":"4","cp":"40000",
+//             "preguntas":
+//             [{"id_pregunta":0,"texto_pregunta":"¿A quién va a votar en las próximas elecciones?",
+//                   "opciones":[
+//                               {"id_opcion":0,"texto_opcion":"Mariano Rajoy","votos":10},
+//                               {"id_opcion":1,"texto_opcion":"Pdro Snchz","votos":9},
+//                               {"id_opcion":2,"texto_opcion":"Pablo Iglesias","votos":8},
+//                               {"id_opcion":3,"texto_opcion":"Albert Rivera","votos":7}]},
+//               {"id_pregunta":1,"texto_pregunta":"¿Eres mayor de edad?",
+//                   "opciones":[{"id_opcion":4,"texto_opcion":"Sí","votos":30},
+//                               {"id_opcion":5,"texto_opcion":"No","votos":10}]}
+//             ]}]
+//   res.json(json)
 
-  res.json(json)
 //  peticion(options, res)
 })
 //Recibimos las preguntas de una encuesta
