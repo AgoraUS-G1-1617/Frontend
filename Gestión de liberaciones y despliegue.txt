@@ -1,0 +1,4 @@
+La gestión de liberaciones y de despliegue funciona de igual manera que la gestión construcción e integración explicado más arriba: máquina con Jenkins que coge el código de Github y lo compila. Solo que para las liberaciones de las versiones, y el despliegue en general, lo hacemos en otra url.
+Como se explicó antes, había una fase en Jenkins llamaba 'stable' que consistía en coger el código de la fase 'beta' y ejecutarlo en otro sitio. La url de fase estable es esta: https://frontend.agoraus1.egc.duckdns.org/
+
+Esta metodología nos permite que probemos siempre los cambios durante el desarrollo del proyecto (fase 'beta'), pero que contemos, igualmente, con la aplicación corriendo para los clientes de manera segura y fiable (fase 'stable'). Además, una vez testeado en desarrollo, pasar a estable es muy sencillo: ejecutar la tarea en Jenkins y ya se encarga el servidor de hacer todo lo demás.

@@ -1,0 +1,156 @@
+Para llevar a cabo la gestión de la construcción y la gestión de la integración utilizamos la idea de la integración continua, nacida de Martin Fowler. Todo lo que cada uno va desarrollando y lo que el conjunto desarrolla se sube a un servidor y se compila automáticamente. Dentro de nuestra estructura de proyecto, esta parte se encuentra en la rama 'dev'. Es aquí donde el servidor de integración continua, una vez que detecta un commit nuevo en GitHub en la rama 'dev', coge todo el código y se lo lleva al servidor, donde se compila automáticamente.
+
+La idea es tener un sistema de despliegue e integración continua durante el desarrollo de los proyectos con el fin de facilitar tanto el desarrollo como la integración de los subsistemas. Para ello se ha pensado que dicha integración constará de 3 partes usando la tecnología Jenkins dentro de la estructura propia de nuestro proyecto:
+1. Fase make. En esta fase se descarga el código tras una modificación y se prepara para ser lanzado. En ocasiones podrían ejecutarse test para comprobar su integridad antes del despliegue. 
+	a) En nuestro caso, no se hace nada, ya los test los ejecutamos en otra máquina independiente y con otra tecnología: Travis, que se explicará más adelante.
+	b) Coge, como dijimos anteriormente,  el código de la rama 'dev' de Github. Al ser Jenkins la tecnología que utiliza, esto no deja de ser una tarea.
+	c) Este se configura en un archivo de script bash que ejecuta todo lo afirmado anteriormente y que se recoge más abajo.
+	d) Para poder verlo, se puede acceder a la página del servidor de integración continua de todos los proyectos de AgoraUS:  https://jenkins.egc.duckdns.org/
+
+El archivo consiste en estas cuatro instrucciones que eliminan el anterior contenedor y lo vuelve a crear:
+#!/bin/bash
+
+rm -rf $JENKINS_HOME/builds/$JOB_NAME/
+mkdir -p $JENKINS_HOME/builds/$JOB_NAME/
+cp -r * $JENKINS_HOME/builds/$JOB_NAME/
+ls -lah $JENKINS_HOME/builds/$JOB_NAME/
+
+2. Fase beta. Esta fase se ejecuta automáticamente tras la finalización de la fase make. Se elimina la aplicación ya desplegada y se lanza la compilada en la fase make.
+	a) Aquí es donde tiene lugar la fase de construcción e integración. En nuestro proyecto, gracias a la enorme sencillez de NodeJS, esta fase consiste en dos instrucciones: npm install y npm start.
+	b) Se compila dentro del mismo servidor, pero en un contenedor Docker, por su simplicidad, ya que este no deja de ser un script sobre un contendor base. Esto te quita toda la complicación que pueda tener instalar los componentes en el servidor a mano. El nuestro es uno de NodeJS que se puede encontrar aquí en el foro de Docker.
+	c) El build, en nuestro caso, es una aplicacion web, que al estar en un servidor en la web, se puede acceder desde internet. El link es el siguiente:  https://beta.frontend.agoraus1.egc.duckdns.org/
+
+Este archivo es más complejo, y por ello está comentado:
+#!/bin/bash
+
+ENV_NAME="AgoraUS-G10-Frontend"
+URL_VIRTUAL_HOST="beta.frontend.agoraus1.egc.duckdns.org"
+BRANCH="beta"
+PROJECT_JENKINS_NAME="AgoraUS-G10-Frontend_make"
+
+PATH_ROOT="/var/jenkins_home"
+PATH_ROOT_HOST="/home/egcuser/jenkins_home"
+
+echo "Eliminando contenedores antiguos"
+ContainerId2=`docker ps -qa --filter "name=$ENV_NAME-$BRANCH-nodejs"`
+if [ -n "$ContainerId2" ]
+then
+	echo "Stopping and removing existing $ENV_NAME-$BRANCH-nodejs container"
+	docker stop $ContainerId2
+	docker rm -v $ContainerId2
+fi
+
+
+echo "Preparando archivos para despliegue"
+
+rm -r "$PATH_ROOT/deploys/$ENV_NAME/$BRANCH/"
+
+mkdir -p "$PATH_ROOT/deploys/$ENV_NAME/$BRANCH/"
+
+# NODEJS FOLDER
+cp -r $PATH_ROOT/builds/$PROJECT_JENKINS_NAME/* $PATH_ROOT/deploys/$ENV_NAME/$BRANCH/
+
+
+echo "Desplegando contenedores para $ENV_NAME"
+
+docker run -d --name $ENV_NAME-$BRANCH-nodejs \
+	-v "$PATH_ROOT_HOST/deploys/$ENV_NAME/$BRANCH/":/myapp \
+    -w /myapp \
+    --add-host recuento.agoraus1.egc.duckdns.org:192.168.20.84 \
+    --add-host beta.recuento.agoraus1.egc.duckdns.org:192.168.20.84 \
+    --restart=always \
+	-e VIRTUAL_HOST="$URL_VIRTUAL_HOST" \
+	-e VIRTUAL_PORT=8080 \
+	-e "LETSENCRYPT_HOST=$URL_VIRTUAL_HOST" \
+	-e "LETSENCRYPT_EMAIL=annonymous@alum.us.es" \
+	--expose=8080 \
+	anapsix/nodejs
+
+
+echo "Aplicación desplegada en https://$URL_VIRTUAL_HOST"
+
+3. Fase stable. Esta fase se ejecuta manualmente por el administración del Jenkins. Se diferencia de la fase beta en la estabilidad, algo necesario para la interacción por parte de los otros subsistemas con él. El código ejecutado en esta fase debe ser el mismo que el de la fase beta para corroborar su estabilidad antes de ejecutar este despliegue.
+	a) Aquí es donde tiene lugar la fase de liberación y despliegue, que es explicará más tarde.
+
+El fichero es casi idéntico al anterior, solo que este coje el código de beta, y no de make, como el anterior, y que este lo guarda en una carpeta llamada builds:
+#!/bin/bash
+
+ENV_NAME="AgoraUS-G10-Frontend"
+URL_VIRTUAL_HOST="frontend.agoraus1.egc.duckdns.org"
+BRANCH="stable"
+
+
+PATH_ROOT="/var/jenkins_home"
+PATH_ROOT_HOST="/home/egcuser/jenkins_home"
+
+echo "Eliminando contenedores antiguos"
+ContainerId2=`docker ps -qa --filter "name=$ENV_NAME-$BRANCH-nodejs"`
+if [ -n "$ContainerId2" ]
+then
+	echo "Stopping and removing existing $ENV_NAME-$BRANCH-nodejs container"
+	docker stop $ContainerId2
+	docker rm -v $ContainerId2
+fi
+
+
+echo "Preparando archivos para despliegue"
+
+rm -r "$PATH_ROOT/deploys/$ENV_NAME/$BRANCH/"
+
+mkdir -p "$PATH_ROOT/deploys/$ENV_NAME/$BRANCH/"
+
+# PYTHON FOLDER
+cp -r $PATH_ROOT/deploys/$ENV_NAME/beta/* $PATH_ROOT/deploys/$ENV_NAME/$BRANCH/
+
+
+echo "Desplegando contenedores para $ENV_NAME"
+
+docker run -d --name $ENV_NAME-$BRANCH-nodejs \
+	-v "$PATH_ROOT_HOST/deploys/$ENV_NAME/$BRANCH/":/myapp \
+    -w /myapp \
+    --add-host recuento.agoraus1.egc.duckdns.org:192.168.20.84 \
+    --add-host beta.recuento.agoraus1.egc.duckdns.org:192.168.20.84 \
+    --restart=always \
+	-e VIRTUAL_HOST="$URL_VIRTUAL_HOST" \
+	-e VIRTUAL_PORT=8080 \
+	-e "LETSENCRYPT_HOST=$URL_VIRTUAL_HOST" \
+	-e "LETSENCRYPT_EMAIL=annonymous@alum.us.es" \
+	--expose=8080 \
+	anapsix/nodejs
+
+echo "Aplicación desplegada en https://$URL_VIRTUAL_HOST"
+
+
+--Docker--
+Aunque ya hemos explicado qué es docker, creo que es necesario recalcar más algunos conceptos. Para la configurar Jenkins, en concreto la construcción y el despliegue, nos hace falta utilizar un contenedor de código con la configuración de nuestro proyecto: NodeJS. Para eso, se ha utilizado la tecnología Docker, que permite, a través de comandos bash, contruir el sistema con una configuración inicial dada. Nosotros hemos utilizado una imagen que se puede encontrar en el foro de la empresa. La imagen elegida está en  https://hub.docker.com/r/anapsix/nodejs/ ya que incluye todo lo que nos hace falta: NodeJS y sus comandos iniciales: 'npm install', que instala todos los componentes que se encuentren en el package.json y 'npm start', que ejecuta el servidor, en nuestro caso, el archivo server.js. Los comandos para ejercutar en local el código son y probar el contenedor son los siguientes:
+git clone https://github.com/AgoraUS-G1-1617/Frontend.git
+cd Frontend
+git pull --all
+
+sudo apt-get install docker.io
+sudo docker pull anapsix/nodejs
+sudo docker run -ti --expose=8080 -p 8081:8080 -v /home/usuario/Frontend/:/app/ -w /app anapsix/nodejs
+
+Si funciona correctamente en localhost:8080, se puede ya configurar en el servidor, por medio de un archivo de script.
+
+
+--Travis--
+Las pruebas se realizarán con los framework Jasmine y Karma, que testean los controladores de AngularJS. Para la automatización de las mismas se utilizará Travis, dado su fácil integración con Karma. Igual que anteriormente, para configurarlo, es necesario solo un fichero, llamado .travis.yml:
+
+language: node_js
+node_js:
+    - "6.9.1"
+script: node_modules/karma/bin/karma start karma.conf.js --single-run
+before_install:
+    - export CHROME_BIN=chromium-browser
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
+before_script:
+    - npm update
+cache:
+  directories:
+    - node_modules
+
+
+En este, es donde se indican algunas instrucciones, de las cuales la más importante es el karma start, la necesaria para que las pruebas, configuradas en otro archivo, se ejecuten automáticamente. Al igual que en Jenkins, estas pruebas se realizan por cada commit en la rama 'dev'.
+Estas ejecuciones están visibles en: https://travis-ci.org/AgoraUS-G1-1617/Frontend
