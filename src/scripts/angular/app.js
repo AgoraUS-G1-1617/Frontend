@@ -74,7 +74,9 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'VotosTotales': 'Total votes',
 				'DesgloseVotos':'Number of votes per answered question',
 				'NoTerminada':'This survey has not finished yet',
-      });
+				'CabinaVotacion':'Voting Poll',
+				'GestionVotaciones':'Manage surveys',
+		  });
 
       $translateProvider.translations('es', {
         'ENCUESTAS':'ENCUESTAS',
@@ -112,6 +114,8 @@ agoraUSApp.config([ '$routeProvider', '$locationProvider',
 				'VotosTotales':'Votos totales',
 				'DesgloseVotos':'Número de votos por cada pregunta de una encuesta',
 				'NoTerminada':'Esta encuesta aún no ha terminado',
+				'CabinaVotacion':'Cabina de votación',
+				'GestionVotaciones':'Gestionar votaciones',
       });
 
       $translateProvider.preferredLanguage('es');
