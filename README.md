@@ -1,4 +1,6 @@
-﻿# Visualización
+# Visualización
+![build](https://api.travis-ci.org/AgoraUS-G1-1617/Frontend.svg?branch=dev)
+
 Subsistema de visualización y gestión de resultados de Agora US.
 
 ## Miembros
