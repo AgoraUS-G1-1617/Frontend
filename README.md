@@ -1,9 +1,5 @@
 # Visualización
-<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Frontend.svg?branch=master)](https://travis-ci.org/AgoraUS-G1-1617/Frontend)
-=======
-[![Build Status](https://travis-ci.org/AgoraUS-G1-1617/Frontend.svg?branch=dev)](https://travis-ci.org/AgoraUS-G1-1617/Frontend)
->>>>>>> dev
 
 Subsistema de visualización y gestión de resultados de Agora US.
 
