@@ -1,5 +1,5 @@
 var agoraUSControllers = angular.module('AgoraUSControllers', [ 'ngRoute' ]);
-
+// En este controlador debería ir el cambio
 var host = "http://localhost:3000/"
 
 function showHeaderAndFooter($scope, title) {
